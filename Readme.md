@@ -1,7 +1,7 @@
 # ValidationExtensions
 
 [![.NET](https://github.com/linkdotnet/ValidationExtensions/actions/workflows/dotnet.yml/badge.svg)](https://github.com/linkdotnet/ValidationExtensions/actions/workflows/dotnet.yml)
-![nuget](https://img.shields.io/nuget/v/LinkDotNet.ValidationExtensions)
+[![nuget](https://img.shields.io/nuget/v/LinkDotNet.ValidationExtensions)](https://www.nuget.org/packages/LinkDotNet.ValidationExtensions)
 
 The motivation behind this small project is simple. Just imagine you have the following model in Blazor:
 ```csharp
