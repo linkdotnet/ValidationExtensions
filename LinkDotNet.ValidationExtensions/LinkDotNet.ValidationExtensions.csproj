@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Title>ValidationExtensions</Title>
+        <Authors>Steven Giesel (linkdotnet)</Authors>
+        <Description>Offers new attributes for Blazor validation</Description>
+        <Copyright>Steven Giesel (linkdotnet)</Copyright>
+    </PropertyGroup>
+
+</Project>
