@@ -1,5 +1,8 @@
 # ValidationExtensions
 
+[![.NET](https://github.com/linkdotnet/ValidationExtensions/actions/workflows/dotnet.yml/badge.svg)](https://github.com/linkdotnet/ValidationExtensions/actions/workflows/dotnet.yml)
+![nuget](https://img.shields.io/nuget/v/LinkDotNet.ValidationExtensions)
+
 The motivation behind this small project is simple. Just imagine you have the following model in Blazor:
 ```csharp
 public class MyModel
@@ -34,3 +37,25 @@ public class MyModel
 ```
 
 Now `Title` will always be required. But as long as `IsPublished` is false `Content` can be null or empty.
+
+## Get Started
+```
+dotnet add LinkDotNet.ValidationExtensions
+```
+
+## Example
+```csharp
+using LinkDotNet.ValidationExtensions;
+
+public class BlogArticle
+{
+    [Required]
+    public string Title { get; set; }
+
+    [RequiredIf(nameof(IsPublished), true)]
+    public string ArticleContent { get; set; }
+
+    [RequiredIfNot(nameof(ArticleContent), null)]
+    public string ReplacementContent { get; set; }
+}
+```
