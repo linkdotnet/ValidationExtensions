@@ -15,7 +15,7 @@ public class RequiredIfNotAttribute : ValidationAttribute
 
     public override string FormatErrorMessage(string name)
     {
-        var errorMessage = $"Property {name} is required when {_propertyName} is {_isNotValue}";
+        var errorMessage = $"Property {name} is required when {_propertyName} is not {_isNotValue}";
         return ErrorMessage ?? errorMessage;
     }
 
