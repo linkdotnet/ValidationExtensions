@@ -29,14 +29,14 @@ public class RequiredIfNotAttribute : ValidationAttribute
             throw new NotSupportedException($"Can't find {_propertyName} on searched type: {validationContext.ObjectType.Name}");
         }
 
-        var requiredIfTypeActualValue = property.GetValue(validationContext.ObjectInstance);
+        var requiredIfNotTypeActualValue = property.GetValue(validationContext.ObjectInstance);
 
-        if (requiredIfTypeActualValue == null && _isNotValue != null)
+        if (requiredIfNotTypeActualValue == null && _isNotValue != null)
         {
             return ValidationResult.Success;
         }
 
-        if (requiredIfTypeActualValue == null || requiredIfTypeActualValue.Equals(_isNotValue))
+        if (requiredIfNotTypeActualValue == null || !requiredIfNotTypeActualValue.Equals(_isNotValue))
         {
             return value == null
                 ? new ValidationResult(FormatErrorMessage(validationContext.DisplayName))
