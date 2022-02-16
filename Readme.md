@@ -21,7 +21,7 @@ public class MyModel
 Now as a consumer you have to provide all of those 3 values. That is all good and nice, but what if we want to say:
 "Okay as long as it doesn't get published, we don't have to provide the content?". Well that does not work with the default implementation.
 
-Here we this small library comes into play:
+Here is where this small library comes into play:
 ```csharp
 public class MyModel
 {
