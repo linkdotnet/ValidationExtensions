@@ -21,17 +21,8 @@ public class RequiredIfAttribute : ValidationAttribute
 
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        ArgumentNullException.ThrowIfNull(validationContext);
-        var property = validationContext.ObjectType.GetProperty(propertyName);
-
-        if (property == null)
-        {
-            throw new NotSupportedException($"Can't find {propertyName} on searched type: {validationContext.ObjectType.Name}");
-        }
-
-        var requiredIfTypeActualValue = property.GetValue(validationContext.ObjectInstance);
-
-        if (requiredIfTypeActualValue == null && isValue != null)
+        var isRequired = validationContext.IsRequired(propertyName, isValue, false, out var requiredIfTypeActualValue);
+        if (!isRequired)
         {
             return ValidationResult.Success;
         }
