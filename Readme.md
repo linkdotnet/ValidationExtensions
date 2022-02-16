@@ -62,6 +62,6 @@ public class BlogArticle
 ```
 
 ## Currently implemented additional attributes:
- * `RequiredIf` / `RequiredIfNot`
- * `MaxLengthIf` / `MaxLengthIfNot`
- * `MinLengthIf` / `MinLengthIfNot`
+ * `RequiredIf`
+ * `MaxLengthIf`
+ * `MinLengthIf`

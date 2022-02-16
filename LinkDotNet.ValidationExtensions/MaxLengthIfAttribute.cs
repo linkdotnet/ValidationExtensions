@@ -2,12 +2,23 @@
 
 namespace LinkDotNet.ValidationExtensions;
 
+/// <summary>
+/// Specifies the maximum length of collection/string data allowed in a property when the condition is (not) met.
+/// </summary>
 public class MaxLengthIfAttribute : MaxLengthAttribute
 {
     private readonly string propertyName;
     private readonly object? isValue;
     private readonly bool inverse;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MaxLengthIfAttribute"/> class.
+    /// </summary>
+    /// <param name="propertyName">Name of the depending property.</param>
+    /// <param name="isValue">Required value. If <see cref="propertyName"/> is <see cref="isValue"/> then the property is not required.</param>
+    /// <param name="length">The maximum allowable length of collection/string data. Value must be greater than or equal to zero.</param>
+    /// <param name="inverse">If set to true, the value is not required when <see cref="propertyName"/> is
+    /// not <see cref="isValue"/>.</param>
     public MaxLengthIfAttribute(string propertyName, object? isValue, int length, bool inverse = false)
         : base(length)
     {
