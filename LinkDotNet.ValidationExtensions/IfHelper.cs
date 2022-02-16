@@ -2,7 +2,7 @@
 
 namespace LinkDotNet.ValidationExtensions;
 
-public static class IfHelper
+internal static class IfHelper
 {
     public static bool IsRequired(
         this ValidationContext? validationContext,
