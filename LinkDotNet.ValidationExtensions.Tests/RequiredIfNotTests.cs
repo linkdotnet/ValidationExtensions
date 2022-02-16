@@ -59,7 +59,6 @@ public class RequiredIfNotTests
         isValid.Should().BeTrue();
     }
 
-
     [Fact]
     public void ShouldThrowExceptionWhenPropertyNotFound()
     {
