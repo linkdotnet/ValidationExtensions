@@ -4,8 +4,8 @@ namespace LinkDotNet.ValidationExtensions;
 
 public class MinLengthIfAttribute : MinLengthAttribute
 {
-    private string propertyName;
-    private object? isValue;
+    private readonly string propertyName;
+    private readonly object? isValue;
 
     public MinLengthIfAttribute(string propertyName, object? isValue, int length)
         : base(length)
