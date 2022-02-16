@@ -14,22 +14,15 @@ public class MinLengthIfAttribute : MinLengthAttribute
         this.propertyName = propertyName;
     }
 
+    public override string FormatErrorMessage(string name)
+    {
+        return $"The field '{name}' must be a string or array type with a minimum length of '{Length}' when '{propertyName}' is '{isValue}'.";
+    }
+
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        var shouldCheck = validationContext.IsRequired(propertyName, value, false, out var requiredActualValue);
+        var shouldCheck = validationContext.IsRequired(propertyName, isValue, false);
 
-        if (!shouldCheck)
-        {
-            return ValidationResult.Success;
-        }
-
-        if (requiredActualValue == null || requiredActualValue.Equals(isValue))
-        {
-            return value == null
-                ? base.IsValid(value, validationContext)
-                : ValidationResult.Success;
-        }
-
-        return base.IsValid(value, validationContext);
+        return !shouldCheck ? ValidationResult.Success : base.IsValid(value, validationContext);
     }
 }

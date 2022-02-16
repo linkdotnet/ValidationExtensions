@@ -8,8 +8,7 @@ public static class IfHelper
         this ValidationContext? validationContext,
         string propertyName,
         object? requiredValue,
-        bool invert,
-        out object? requiredActualValue)
+        bool invert)
     {
         ArgumentNullException.ThrowIfNull(validationContext);
         ArgumentNullException.ThrowIfNull(propertyName);
@@ -23,13 +22,17 @@ public static class IfHelper
         }
 
         var requiredIfTypeActualValue = property.GetValue(validationContext.ObjectInstance);
-        requiredActualValue = requiredIfTypeActualValue;
 
         if (requiredIfTypeActualValue == null && requiredValue != null)
         {
             return false;
         }
 
-        return true;
+        if (!invert)
+        {
+            return requiredIfTypeActualValue == null || requiredIfTypeActualValue.Equals(requiredValue);
+        }
+
+        return requiredIfTypeActualValue == null || !requiredIfTypeActualValue.Equals(requiredValue);
     }
 }

@@ -22,7 +22,7 @@ public class RequiredIfNotTests
     }
 
     [Fact]
-    public void ShouldBeInvalidWhenRequiredNotConditionMeet()
+    public void ShouldBeInvalidWhenRequiredNotConditionNotMet()
     {
         var model = new Model(null, true, "test");
         var context = new ValidationContext(model);
@@ -32,7 +32,7 @@ public class RequiredIfNotTests
 
         isValid.Should().BeFalse();
         results.Should().HaveCount(1);
-        results.Single().ErrorMessage.Should().Be("Property SomeProperty is required when IsDependent is not False");
+        results.Single().ErrorMessage.Should().Be("Property 'SomeProperty' is required when 'IsDependent' is not 'False'");
     }
 
     [Fact]

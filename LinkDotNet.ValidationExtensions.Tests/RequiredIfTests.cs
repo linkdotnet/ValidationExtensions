@@ -32,7 +32,7 @@ public class RequiredIfTests
 
         isValid.Should().BeFalse();
         results.Should().HaveCount(1);
-        results.Single().ErrorMessage.Should().Be("Property SomeProperty is required when IsDependent is True");
+        results.Single().ErrorMessage.Should().Be("Property 'SomeProperty' is required when 'IsDependent' is 'True'");
     }
 
     [Fact]

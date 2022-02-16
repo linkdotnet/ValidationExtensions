@@ -15,25 +15,23 @@ public class RequiredIfNotAttribute : ValidationAttribute
 
     public override string FormatErrorMessage(string name)
     {
-        var errorMessage = $"Property {name} is required when {propertyName} is not {isNotValue}";
+        var errorMessage = $"Property '{name}' is required when '{propertyName}' is not '{isNotValue}'";
         return ErrorMessage ?? errorMessage;
     }
 
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        var isRequired = validationContext.IsRequired(propertyName, isNotValue, false, out var requiredIfNotTypeActualValue);
+        var isRequired = validationContext.IsRequired(
+            propertyName,
+            isNotValue,
+            invert: true);
         if (!isRequired)
         {
             return ValidationResult.Success;
         }
 
-        if (requiredIfNotTypeActualValue == null || !requiredIfNotTypeActualValue.Equals(isNotValue))
-        {
-            return value == null
-                ? new ValidationResult(FormatErrorMessage(validationContext.DisplayName))
-                : ValidationResult.Success;
-        }
-
-        return ValidationResult.Success;
+        return value == null
+            ? new ValidationResult(FormatErrorMessage(validationContext.DisplayName))
+            : ValidationResult.Success;
     }
 }
