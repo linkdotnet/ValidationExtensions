@@ -42,7 +42,7 @@ public class MaxLengthIfNotTests
             IsRequired = isRequired;
         }
 
-        [MaxLengthIfNot(nameof(IsRequired), false, 1)]
+        [MaxLengthIf(nameof(IsRequired), false, 1, true)]
         public string Name { get; set; }
 
         public bool IsRequired { get; set; }

@@ -6,7 +6,7 @@ using Xunit;
 
 namespace LinkDotNet.ValidationExtensions.Tests;
 
-public class MinLengthIfNotTests
+public class MinLengthIfInverseTests
 {
     [Fact]
     public void ShouldCheckForMinIfNotRequired()
@@ -42,7 +42,7 @@ public class MinLengthIfNotTests
             IsRequired = isRequired;
         }
 
-        [MinLengthIfNot(nameof(IsRequired), false, 10)]
+        [MinLengthIf(nameof(IsRequired), false, 10, true)]
         public string Name { get; set; }
 
         public bool IsRequired { get; set; }

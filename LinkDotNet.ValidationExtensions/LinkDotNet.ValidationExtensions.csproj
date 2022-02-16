@@ -29,7 +29,7 @@
 
     <ItemGroup>
         <AdditionalFiles Include="$(SolutionDir)\stylecop.json" Link="stylecop.json" />
-        <None Include="$(SolutionDir)\README.md" Pack="true" PackagePath="\"/>
+        <None Include="$(SolutionDir)\README.md" Pack="true" PackagePath="\" />
     </ItemGroup>
     <PropertyGroup>
         <CodeAnalysisRuleSet>$(SolutionDir)\stylecop.analyzers.ruleset</CodeAnalysisRuleSet>

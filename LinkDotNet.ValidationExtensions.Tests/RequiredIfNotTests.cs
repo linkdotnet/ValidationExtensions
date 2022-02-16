@@ -80,13 +80,13 @@ public class RequiredIfNotTests
             OtherPropertyDependingOnString = otherPropertyDependingOnString;
         }
 
-        [RequiredIfNot(nameof(IsDependent), false)]
+        [RequiredIf(nameof(IsDependent), false, true)]
         public string? SomeProperty { get; set; }
 
         [Required]
         public bool IsDependent { get; set; }
 
-        [RequiredIfNot(nameof(SomeProperty), "Test")]
+        [RequiredIf(nameof(SomeProperty), "Test", true)]
         public string? OtherPropertyDependingOnString { get; set; }
     }
 
