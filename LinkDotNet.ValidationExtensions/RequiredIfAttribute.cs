@@ -25,6 +25,7 @@ public class RequiredIfAttribute : ValidationAttribute
         this.inverse = inverse;
     }
 
+    /// <inheritdoc />
     public override string FormatErrorMessage(string name)
     {
         var inverseString = !inverse ? string.Empty : "not ";

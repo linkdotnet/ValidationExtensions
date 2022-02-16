@@ -27,12 +27,14 @@ public class MinLengthIfAttribute : MinLengthAttribute
         this.propertyName = propertyName;
     }
 
+    /// <inheritdoc />
     public override string FormatErrorMessage(string name)
     {
         var inverseString = !inverse ? string.Empty : "not ";
         return $"The field '{name}' must be a string or array type with a minimum length of '{Length}' when '{propertyName}' is {inverseString}'{isValue}'.";
     }
 
+    /// <inheritdoc />
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
         var shouldCheck = validationContext.IsRequired(propertyName, isValue, inverse);
