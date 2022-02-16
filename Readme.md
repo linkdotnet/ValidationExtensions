@@ -39,6 +39,7 @@ public class MyModel
 Now `Title` will always be required. But as long as `IsPublished` is false `Content` can be null or empty.
 
 ## Get Started
+To install either go the [nuget](https://www.nuget.org/packages/LinkDotNet.ValidationExtensions) or execute the following command:
 ```
 dotnet add LinkDotNet.ValidationExtensions
 ```
@@ -59,3 +60,8 @@ public class BlogArticle
     public string ReplacementContent { get; set; }
 }
 ```
+
+## Currently implemented additional attributes:
+ * `RequiredIf` / `RequiredIfNot`
+ * `MaxLengthIf` / `MaxLengthIfNot`
+ * `MinLengthIf` / `MinLengthIfNot`

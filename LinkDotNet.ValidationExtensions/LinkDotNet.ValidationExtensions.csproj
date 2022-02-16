@@ -13,6 +13,7 @@
         <PackageLicenseUrl>https://github.com/linkdotnet/ValidationExtensions/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/linkdotnet/ValidationExtensions</RepositoryUrl>
         <PackageTags>Blazor,Validation,Attribute</PackageTags>
+        <PackageVersion>1.1.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -28,6 +29,7 @@
 
     <ItemGroup>
         <AdditionalFiles Include="$(SolutionDir)\stylecop.json" Link="stylecop.json" />
+        <None Include="$(SolutionDir)\README.md" Pack="true" PackagePath="\"/>
     </ItemGroup>
     <PropertyGroup>
         <CodeAnalysisRuleSet>$(SolutionDir)\stylecop.analyzers.ruleset</CodeAnalysisRuleSet>
