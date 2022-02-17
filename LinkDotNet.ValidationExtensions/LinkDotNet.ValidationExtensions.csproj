@@ -29,10 +29,14 @@
 
     <ItemGroup>
         <AdditionalFiles Include="$(SolutionDir)\stylecop.json" Link="stylecop.json" />
-        <None Include="$(SolutionDir)\README.md" Pack="true" PackagePath="\" />
+        <None Include="..\Readme.md">
+          <Pack>True</Pack>
+          <PackagePath>\</PackagePath>
+        </None>
     </ItemGroup>
     <PropertyGroup>
         <CodeAnalysisRuleSet>$(SolutionDir)\stylecop.analyzers.ruleset</CodeAnalysisRuleSet>
+        <PackageReadmeFile>Readme.md</PackageReadmeFile>
     </PropertyGroup>
 
 </Project>
