@@ -2,15 +2,26 @@
 
 namespace LinkDotNet.ValidationExtensions;
 
+/// <summary>
+/// Validation attribute that can accept static method to validate complicated requirement(s) and more readable code.
+/// </summary>
 public class RequiredByStaticMethodAttribute : ValidationAttribute
 {
     private readonly string staticMethodName;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RequiredByStaticMethodAttribute"/> class.
+    /// </summary>
+    /// <param name="staticMethodName">Name of static method that check requirement(s).
+    /// The static method must have one parameter of owning type and return Boolean value.
+    /// If requirement(s) not met return true; else return false. </param>
+    /// <exception cref="ArgumentNullException">staticMethodName can not be null.</exception>
     public RequiredByStaticMethodAttribute(string staticMethodName)
     {
         this.staticMethodName = staticMethodName ?? throw new ArgumentNullException(nameof(staticMethodName));
     }
 
+    /// <inheritdoc />
     public override string FormatErrorMessage(string name)
     {
         return $"{name} is required because {ErrorMessageString}";
