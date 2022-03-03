@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Linq;
 using FluentAssertions;
 using Xunit;
 
 namespace LinkDotNet.ValidationExtensions.Tests;
 
-public class RequiredByStaticMethodTests
+public class RequiredDynamicTests
 {
     [Fact]
     public void Should_not_be_valid_if_MobileNumber_is_null()
@@ -126,16 +125,16 @@ public class RequiredByStaticMethodTests
         [Required]
         public string? MobileNumber { get; set; }
 
-        [RequiredByStaticMethod(nameof(ValidateRequired_Fullname), ErrorMessage = "Fullname can't be empty")]
+        [RequiredDynamicAttribute(nameof(ValidateRequired_Fullname), ErrorMessage = "Fullname can't be empty")]
         public string? Firstname { get; set; }
 
-        [RequiredByStaticMethod(nameof(ValidateRequired_Fullname), ErrorMessage = "Fullname can't be empty")]
+        [RequiredDynamicAttribute(nameof(ValidateRequired_Fullname), ErrorMessage = "Fullname can't be empty")]
         public string? Surname { get; set; }
 
         [Required]
         public bool? NoticeByEmail { get; set; }
 
-        [RequiredByStaticMethod(nameof(ValidateRequired_NoticeByEmail), ErrorMessage = "Notice by email is activated")]
+        [RequiredDynamicAttribute(nameof(ValidateRequired_NoticeByEmail), ErrorMessage = "Notice by email is activated")]
         public string? EmailAddress { get; set; }
 
         private static bool ValidateRequired_Fullname(Model value)
