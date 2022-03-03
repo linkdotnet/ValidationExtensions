@@ -10,6 +10,7 @@ All notable changes to the **ValidationExtensions** will be documented in this f
  * Added `MinIfAttribute` which used `MinAttribute` if the condition is (not) met
  * Added `MaxAttribute` which indicates that a number field has to have at most this value
  * Added `MaxIfAttribute` which used `MaxAttribute` if the condition is (not) met
+ * Added `RequiredByStaticMethodAttribute` which can accept static method to validate complicated requirement(s) and more readable code.
 
 ## [1.1.0]
 
