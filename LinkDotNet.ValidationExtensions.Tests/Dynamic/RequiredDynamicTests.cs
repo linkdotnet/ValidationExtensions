@@ -9,8 +9,8 @@ namespace LinkDotNet.ValidationExtensions.Tests;
 
 public class RequiredDynamicTests
 {
-    [Fact]
-    public void Should_not_be_valid_if_MobileNumber_is_null()
+    [Fact(DisplayName = "Should not be valid if mobile number is null")]
+    public void ShouldNotBeValidIfMobileNumberIsNull()
     {
         var model = new Model(null, "John", "Wick", false, null);
         var context = new ValidationContext(model);
@@ -26,8 +26,8 @@ public class RequiredDynamicTests
         isValid.Should().BeFalse();
     }
 
-    [Fact]
-    public void Should_not_be_valid_if_Firstname_and_Surname_is_null()
+    [Fact(DisplayName = "Should not be valid if firstname and surname is null")]
+    public void ShouldNotBeValidIfFirstnameAndSurnameIsNull()
     {
         var model = new Model("+15854380259", null, null, false, null);
         var context = new ValidationContext(model);
@@ -43,8 +43,8 @@ public class RequiredDynamicTests
         isValid.Should().BeFalse();
     }
 
-    [Fact]
-    public void Should_be_valid_if_Firstname_is_not_null()
+    [Fact(DisplayName = "Should be valid if firstname is not null")]
+    public void ShouldBeValidIfFirstnameIsNotNull()
     {
         var model = new Model("+15854380259", "John", null, false, null);
         var context = new ValidationContext(model);
@@ -60,8 +60,8 @@ public class RequiredDynamicTests
         isValid.Should().BeTrue();
     }
 
-    [Fact]
-    public void Should_be_valid_if_Surname_is_not_null()
+    [Fact(DisplayName = "Should be valid if surname is not null")]
+    public void ShouldBeValidIfSurnameIsNotNull()
     {
         var model = new Model("+15854380259", null, "Wick", false, null);
         var context = new ValidationContext(model);
@@ -77,8 +77,8 @@ public class RequiredDynamicTests
         isValid.Should().BeTrue();
     }
 
-    [Fact]
-    public void Should_not_be_valid_if_notice_by_email_is_null()
+    [Fact(DisplayName = "Should not be valid if notice by email is null")]
+    public void ShouldNotBeValidIfNoticeByEmailIsNull()
     {
         var model = new Model("+15854380259", "John", "Wick", null, null);
         var context = new ValidationContext(model);
@@ -94,8 +94,8 @@ public class RequiredDynamicTests
         isValid.Should().BeFalse();
     }
 
-    [Fact]
-    public void Should_not_be_valid_if_notice_by_email_is_activated_and_email_address_is_null()
+    [Fact(DisplayName = "Should not be valid if notice by email is activated and email address is null")]
+    public void ShouldNotBeValidIfNoticeByEmailIsActivatedAndEmailAddressIsNull()
     {
         var model = new Model("+15854380259", "John", "Wick", true, null);
         var context = new ValidationContext(model);
@@ -117,9 +117,9 @@ public class RequiredDynamicTests
         {
             MobileNumber = mobileNumber;
             Firstname = firstname;
-            Firstname_StaticPublic = firstname;
-            Firstname_InstancePublic = firstname;
-            Firstname_InstanceNonePublic = firstname;
+            FirstnameStaticPublic = firstname;
+            FirstnameInstancePublic = firstname;
+            FirstnameInstanceNonePublic = firstname;
             Surname = surname;
             NoticeByEmail = noticeByEmail;
             EmailAddress = emailAddress;
@@ -128,28 +128,28 @@ public class RequiredDynamicTests
         [Required]
         public string? MobileNumber { get; set; }
 
-        [RequiredDynamic(nameof(ValidateRequired_Fullname), "Fullname can't be empty (Static, NonePublic)")]
+        [RequiredDynamic(nameof(ValidateRequiredFullname), "Fullname can't be empty (Static, NonePublic)")]
         public string? Firstname { get; set; }
 
-        [RequiredDynamic(nameof(ValidateRequired_Fullname_StaticPublic), "Fullname can't be empty (Static, Public)")]
-        public string? Firstname_StaticPublic { get; set; }
+        [RequiredDynamic(nameof(ValidateRequiredFullnameStaticPublic), "Fullname can't be empty (Static, Public)")]
+        public string? FirstnameStaticPublic { get; set; }
 
-        [RequiredDynamic(nameof(ValidateRequired_Fullname_InstancePublic), "Fullname can't be empty (Instance, Public)")]
-        public string? Firstname_InstancePublic { get; set; }
+        [RequiredDynamic(nameof(ValidateRequiredFullnameInstancePublic), "Fullname can't be empty (Instance, Public)")]
+        public string? FirstnameInstancePublic { get; set; }
 
-        [RequiredDynamic(nameof(ValidateRequired_Fullname_InstanceNonePublic), "Fullname can't be empty (Instance, NonePublic)")]
-        public string? Firstname_InstanceNonePublic { get; set; }
+        [RequiredDynamic(nameof(ValidateRequiredFullnameInstanceNonePublic), "Fullname can't be empty (Instance, NonePublic)")]
+        public string? FirstnameInstanceNonePublic { get; set; }
 
-        [RequiredDynamic(nameof(ValidateRequired_Fullname), "Fullname can't be empty")]
+        [RequiredDynamic(nameof(ValidateRequiredFullname), "Fullname can't be empty")]
         public string? Surname { get; set; }
 
         [Required]
         public bool? NoticeByEmail { get; set; }
 
-        [RequiredDynamic(nameof(ValidateRequired_NoticeByEmail), "Notice by email is activated")]
+        [RequiredDynamic(nameof(ValidateRequiredNoticeByEmail), "Notice by email is activated")]
         public string? EmailAddress { get; set; }
 
-        public static bool ValidateRequired_Fullname(Model value)
+        public static bool ValidateRequiredFullname(Model value)
         {
             if (string.IsNullOrWhiteSpace(value.Firstname) && string.IsNullOrWhiteSpace(value.Surname))
             {
@@ -161,13 +161,9 @@ public class RequiredDynamicTests
             }
         }
 
-        public bool ValidateRequired_Fullname_InstanceNonePublic(Model value) => ValidateRequired_Fullname(value);
+        public bool ValidateRequiredFullnameInstanceNonePublic(Model value) => ValidateRequiredFullname(value);
 
-        private static bool ValidateRequired_Fullname_StaticPublic(Model value) => ValidateRequired_Fullname(value);
-
-        private bool ValidateRequired_Fullname_InstancePublic(Model value) => ValidateRequired_Fullname(value);
-
-        private static bool ValidateRequired_NoticeByEmail(Model value)
+        private static bool ValidateRequiredNoticeByEmail(Model value)
         {
             if (!value.NoticeByEmail.HasValue)
             {
@@ -188,5 +184,9 @@ public class RequiredDynamicTests
                 return false;
             }
         }
+
+        private static bool ValidateRequiredFullnameStaticPublic(Model value) => ValidateRequiredFullname(value);
+
+        private bool ValidateRequiredFullnameInstancePublic(Model value) => ValidateRequiredFullname(value);
     }
 }
