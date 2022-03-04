@@ -9,8 +9,8 @@ public class RequiredDynamicAttribute : ValidationAttribute
 {
     private static readonly List<System.Reflection.BindingFlags> BindingFlagsForSearch = new()
     {
-        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic,
         System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public,
+        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic,
         System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public,
         System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic,
     };
@@ -69,7 +69,7 @@ public class RequiredDynamicAttribute : ValidationAttribute
             throw new NotSupportedException($"Can't find {methodName} suitable method on searched type: {owningType.Name}");
         }
 
-        return Convert.ToBoolean(methodInfo.Invoke(null, new object[] { validationContext.ObjectInstance }));
+        return Convert.ToBoolean(methodInfo.Invoke(validationContext.ObjectInstance, new object[] { validationContext.ObjectInstance }));
     }
 
     private static System.Reflection.MethodInfo? GetSuitableMethod(Type owningType, string methodName)

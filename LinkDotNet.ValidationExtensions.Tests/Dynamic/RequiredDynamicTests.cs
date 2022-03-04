@@ -117,6 +117,9 @@ public class RequiredDynamicTests
         {
             MobileNumber = mobileNumber;
             Firstname = firstname;
+            Firstname_StaticPublic = firstname;
+            Firstname_InstancePublic = firstname;
+            Firstname_InstanceNonePublic = firstname;
             Surname = surname;
             NoticeByEmail = noticeByEmail;
             EmailAddress = emailAddress;
@@ -125,8 +128,17 @@ public class RequiredDynamicTests
         [Required]
         public string? MobileNumber { get; set; }
 
-        [RequiredDynamic(nameof(ValidateRequired_Fullname), "Fullname can't be empty")]
+        [RequiredDynamic(nameof(ValidateRequired_Fullname), "Fullname can't be empty (Static, NonePublic)")]
         public string? Firstname { get; set; }
+
+        [RequiredDynamic(nameof(ValidateRequired_Fullname_StaticPublic), "Fullname can't be empty (Static, Public)")]
+        public string? Firstname_StaticPublic { get; set; }
+
+        [RequiredDynamic(nameof(ValidateRequired_Fullname_InstancePublic), "Fullname can't be empty (Instance, Public)")]
+        public string? Firstname_InstancePublic { get; set; }
+
+        [RequiredDynamic(nameof(ValidateRequired_Fullname_InstanceNonePublic), "Fullname can't be empty (Instance, NonePublic)")]
+        public string? Firstname_InstanceNonePublic { get; set; }
 
         [RequiredDynamic(nameof(ValidateRequired_Fullname), "Fullname can't be empty")]
         public string? Surname { get; set; }
@@ -137,7 +149,7 @@ public class RequiredDynamicTests
         [RequiredDynamic(nameof(ValidateRequired_NoticeByEmail), "Notice by email is activated")]
         public string? EmailAddress { get; set; }
 
-        private static bool ValidateRequired_Fullname(Model value)
+        public static bool ValidateRequired_Fullname(Model value)
         {
             if (string.IsNullOrWhiteSpace(value.Firstname) && string.IsNullOrWhiteSpace(value.Surname))
             {
@@ -148,6 +160,12 @@ public class RequiredDynamicTests
                 return false;
             }
         }
+
+        public bool ValidateRequired_Fullname_InstanceNonePublic(Model value) => ValidateRequired_Fullname(value);
+
+        private static bool ValidateRequired_Fullname_StaticPublic(Model value) => ValidateRequired_Fullname(value);
+
+        private bool ValidateRequired_Fullname_InstancePublic(Model value) => ValidateRequired_Fullname(value);
 
         private static bool ValidateRequired_NoticeByEmail(Model value)
         {
