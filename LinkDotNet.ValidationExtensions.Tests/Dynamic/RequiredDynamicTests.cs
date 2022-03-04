@@ -125,16 +125,16 @@ public class RequiredDynamicTests
         [Required]
         public string? MobileNumber { get; set; }
 
-        [RequiredDynamicAttribute(nameof(ValidateRequired_Fullname), ErrorMessage = "Fullname can't be empty")]
+        [RequiredDynamic(nameof(ValidateRequired_Fullname), "Fullname can't be empty")]
         public string? Firstname { get; set; }
 
-        [RequiredDynamicAttribute(nameof(ValidateRequired_Fullname), ErrorMessage = "Fullname can't be empty")]
+        [RequiredDynamic(nameof(ValidateRequired_Fullname), "Fullname can't be empty")]
         public string? Surname { get; set; }
 
         [Required]
         public bool? NoticeByEmail { get; set; }
 
-        [RequiredDynamicAttribute(nameof(ValidateRequired_NoticeByEmail), ErrorMessage = "Notice by email is activated")]
+        [RequiredDynamic(nameof(ValidateRequired_NoticeByEmail), "Notice by email is activated")]
         public string? EmailAddress { get; set; }
 
         private static bool ValidateRequired_Fullname(Model value)

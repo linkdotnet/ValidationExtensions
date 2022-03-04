@@ -15,9 +15,18 @@ public class RequiredDynamicAttribute : ValidationAttribute
     /// <param name="methodName">Name of method that check requirement(s).
     /// The method must have one parameter of owning type and return Boolean value.
     /// If requirement(s) not met return true; else return false. </param>
+    /// <param name="errorMessage">The error message to associate with a validation control.
+    /// Final error message is: 'Parameter name' is required because 'errorMessage'. </param>
     /// <exception cref="ArgumentNullException">methodName can not be null.</exception>
-    public RequiredDynamicAttribute(string methodName)
+    /// <exception cref="ArgumentNullException">errorMessage can not be null.</exception>
+    public RequiredDynamicAttribute(string methodName, string errorMessage)
+        : base(errorMessage)
     {
+        if (string.IsNullOrWhiteSpace(errorMessage))
+        {
+            throw new ArgumentNullException(nameof(errorMessage));
+        }
+
         this.methodName = methodName ?? throw new ArgumentNullException(nameof(methodName));
     }
 
