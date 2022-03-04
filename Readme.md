@@ -62,7 +62,7 @@ public class BlogArticle
     [Required]
     public bool? NoticeByEmail { get; set; }
 
-    [RequiredByStaticMethod(nameof(ValidateRequired_NoticeByEmail), ErrorMessage = "Notice by email is activated")]
+    [RequiredDynamic(nameof(ValidateRequired_NoticeByEmail), "Notice by email is activated")]
     public string? EmailAddress { get; set; }
     
     private static bool ValidateRequired_NoticeByEmail(BlogArticle value)
@@ -96,4 +96,4 @@ public class BlogArticle
  * `RangeIf`
  * `MinIf` / `MaxIf`
  * `Min` / `Max`
- * `ByStaticMethod`
+ * `Dynamic`
