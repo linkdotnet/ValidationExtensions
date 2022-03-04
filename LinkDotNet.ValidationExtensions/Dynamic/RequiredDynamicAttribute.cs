@@ -7,6 +7,14 @@ namespace LinkDotNet.ValidationExtensions;
 /// </summary>
 public class RequiredDynamicAttribute : ValidationAttribute
 {
+    private static readonly List<System.Reflection.BindingFlags> BindingFlagsForSearch = new()
+    {
+        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic,
+        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public,
+        System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public,
+        System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic,
+    };
+
     private readonly string methodName;
 
     /// <summary>
@@ -55,28 +63,47 @@ public class RequiredDynamicAttribute : ValidationAttribute
         ArgumentNullException.ThrowIfNull(methodName);
 
         var owningType = validationContext.ObjectType;
-        var methodInfo = owningType.GetMethod(methodName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+        var methodInfo = GetSuitableMethod(owningType, methodName);
         if (methodInfo == null)
         {
-            methodInfo = owningType.GetMethod(methodName, System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
-        }
-
-        if (methodInfo == null)
-        {
-            throw new NotSupportedException($"Can't find {methodName} method on searched type: {owningType.Name}");
-        }
-
-        var methodParameters = methodInfo.GetParameters();
-        if (methodParameters.Length != 1 && methodParameters[0].ParameterType == owningType)
-        {
-            throw new NotSupportedException($"{methodName} on searched type: {owningType.Name} must have one parameter of {owningType.Name} type!");
-        }
-
-        if (methodInfo.ReturnType != typeof(bool))
-        {
-            throw new NotSupportedException($"{methodName} on searched type: {owningType.Name} must return boolean!");
+            throw new NotSupportedException($"Can't find {methodName} suitable method on searched type: {owningType.Name}");
         }
 
         return Convert.ToBoolean(methodInfo.Invoke(null, new object[] { validationContext.ObjectInstance }));
+    }
+
+    private static System.Reflection.MethodInfo? GetSuitableMethod(Type owningType, string methodName)
+    {
+        ArgumentNullException.ThrowIfNull(owningType);
+        ArgumentNullException.ThrowIfNull(methodName);
+
+        foreach (var bindingFlagForSearch in BindingFlagsForSearch)
+        {
+            var methodInfo = owningType.GetMethod(methodName, bindingFlagForSearch);
+            if (methodInfo == null)
+            {
+                continue;
+            }
+
+            var parameters = methodInfo.GetParameters();
+            if (parameters.Length != 1)
+            {
+                continue;
+            }
+
+            if (parameters[0].ParameterType != owningType)
+            {
+                continue;
+            }
+
+            if (methodInfo.ReturnType != typeof(bool))
+            {
+                continue;
+            }
+
+            return methodInfo;
+        }
+
+        return null;
     }
 }
