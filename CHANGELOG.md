@@ -5,7 +5,7 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 ## [2.1.0]
 
 ### Added
- * Added `RequiredDynamicAttribute` which can accept method to validate complicated requirement(s) and more readable code. By (mhb164)[https://github.com/mhb164]
+ * Added `RequiredDynamicAttribute` which can accept method to validate complicated requirement(s) and more readable code. By [mhb164](https://github.com/mhb164)
 
 ## [2.0.0]
 
