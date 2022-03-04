@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 
 namespace LinkDotNet.ValidationExtensions;
 
@@ -7,12 +8,12 @@ namespace LinkDotNet.ValidationExtensions;
 /// </summary>
 public class RequiredDynamicAttribute : ValidationAttribute
 {
-    private static readonly List<System.Reflection.BindingFlags> BindingFlagsForSearch = new()
+    private static readonly List<BindingFlags> BindingFlagsForSearch = new()
     {
-        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public,
-        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic,
-        System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public,
-        System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic,
+        BindingFlags.Static | BindingFlags.Public,
+        BindingFlags.Static | BindingFlags.NonPublic,
+        BindingFlags.Instance | BindingFlags.Public,
+        BindingFlags.Instance | BindingFlags.NonPublic,
     };
 
     private readonly string methodName;
@@ -51,10 +52,8 @@ public class RequiredDynamicAttribute : ValidationAttribute
         {
             return new ValidationResult(FormatErrorMessage(validationContext.DisplayName));
         }
-        else
-        {
-            return ValidationResult.Success;
-        }
+
+        return ValidationResult.Success;
     }
 
     private static bool IsRequired(ValidationContext validationContext, string methodName)
@@ -72,7 +71,7 @@ public class RequiredDynamicAttribute : ValidationAttribute
         return Convert.ToBoolean(methodInfo.Invoke(validationContext.ObjectInstance, new object[] { validationContext.ObjectInstance }));
     }
 
-    private static System.Reflection.MethodInfo? GetSuitableMethod(Type owningType, string methodName)
+    private static MethodInfo? GetSuitableMethod(Type owningType, string methodName)
     {
         ArgumentNullException.ThrowIfNull(owningType);
         ArgumentNullException.ThrowIfNull(methodName);

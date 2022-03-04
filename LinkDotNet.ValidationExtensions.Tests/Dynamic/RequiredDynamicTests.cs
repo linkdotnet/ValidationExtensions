@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using FluentAssertions;
 using Xunit;
 
@@ -18,11 +16,6 @@ public class RequiredDynamicTests
 
         var isValid = Validator.TryValidateObject(model, context, results, true);
 
-        foreach (var result in results)
-        {
-            Debug.WriteLine(result.ErrorMessage);
-        }
-
         isValid.Should().BeFalse();
     }
 
@@ -34,11 +27,6 @@ public class RequiredDynamicTests
         var results = new List<ValidationResult>();
 
         var isValid = Validator.TryValidateObject(model, context, results, true);
-
-        foreach (var result in results)
-        {
-            Debug.WriteLine(result.ErrorMessage);
-        }
 
         isValid.Should().BeFalse();
     }
@@ -52,11 +40,6 @@ public class RequiredDynamicTests
 
         var isValid = Validator.TryValidateObject(model, context, results, true);
 
-        foreach (var result in results)
-        {
-            Debug.WriteLine(result.ErrorMessage);
-        }
-
         isValid.Should().BeTrue();
     }
 
@@ -68,11 +51,6 @@ public class RequiredDynamicTests
         var results = new List<ValidationResult>();
 
         var isValid = Validator.TryValidateObject(model, context, results, true);
-
-        foreach (var result in results)
-        {
-            Debug.WriteLine(result.ErrorMessage);
-        }
 
         isValid.Should().BeTrue();
     }
@@ -86,11 +64,6 @@ public class RequiredDynamicTests
 
         var isValid = Validator.TryValidateObject(model, context, results, true);
 
-        foreach (var result in results)
-        {
-            Debug.WriteLine(result.ErrorMessage);
-        }
-
         isValid.Should().BeFalse();
     }
 
@@ -102,11 +75,6 @@ public class RequiredDynamicTests
         var results = new List<ValidationResult>();
 
         var isValid = Validator.TryValidateObject(model, context, results, true);
-
-        foreach (var result in results)
-        {
-            Debug.WriteLine(result.ErrorMessage);
-        }
 
         isValid.Should().BeFalse();
     }
