@@ -58,6 +58,35 @@ public class BlogArticle
 
     [RequiredIfNot(nameof(ArticleContent), null)]
     public string ReplacementContent { get; set; }
+    
+    [Required]
+    public bool? NoticeByEmail { get; set; }
+
+    [RequiredDynamic(nameof(ValidateRequired_NoticeByEmail), "Notice by email is activated")]
+    public string? EmailAddress { get; set; }
+    
+    private static bool ValidateRequired_NoticeByEmail(BlogArticle value)
+    {
+        if (!value.NoticeByEmail.HasValue)
+        {
+            return false;
+        }
+
+        if (!value.NoticeByEmail.Value)
+        {
+            return false;
+        }
+
+        if (string.IsNullOrWhiteSpace(value.EmailAddress))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }    
+    
 }
 ```
 
@@ -67,3 +96,4 @@ public class BlogArticle
  * `RangeIf`
  * `MinIf` / `MaxIf`
  * `Min` / `Max`
+ * `Dynamic`
