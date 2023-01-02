@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Reflection;
 
 namespace LinkDotNet.ValidationExtensions;
 
@@ -119,18 +118,28 @@ public class DynamicRangeAttribute : ValidationAttribute
             return propertyNameOrValue;
         }
 
-        if (propertyInfo.PropertyType != subjectType)
+        var propertyType = propertyInfo.PropertyType;
+        if (propertyType != subjectType)
         {
-            throw new InvalidOperationException($"The {subjectName} PropertyType must be the same as the OperandType.");
+            if (propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                // it is nullable so we extrcat underlying type
+                propertyType = propertyType.GetGenericArguments()[0];
+            }
+
+            if (propertyType != subjectType)
+            {
+                throw new InvalidOperationException($"The '{propertyNameOrValue}' type must be the same as the OperandType (introduced for '{subjectName}' in range).");
+            }
         }
 
-        var value = propertyInfo.GetValue(validationContext.ObjectInstance, null)?.ToString();
+        var value = propertyInfo.GetValue(validationContext.ObjectInstance);
 
         if (value is null)
         {
             throw new InvalidOperationException($"The value of '{propertyNameOrValue}' property cannot be null (introduced for '{subjectName}' in range).");
         }
 
-        return value;
+        return value.ToString() ?? string.Empty;
     }
 }
