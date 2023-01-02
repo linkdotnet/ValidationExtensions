@@ -65,10 +65,10 @@ public class BlogArticle
     [RequiredDynamic(nameof(ValidateRequired_NoticeByEmail), "Notice by email is activated")]
     public string? EmailAddress { get; set; }
     
-    [DynamicRange(typeof(decimal), minimum: "9.99", maximum: nameof(MaximumPrice))]
+    [DynamicRange(typeof(decimal), minimum: 9.99, maximumPropertyName: nameof(MaximumPrice))]
     public decimal? MinimumPrice { get; set; }
 
-    [DynamicRange(typeof(decimal), minimum: nameof(MinimumPrice), maximum: "199.99")]
+    [DynamicRange(typeof(decimal), minimumPropertyName: nameof(MinimumPrice), maximum: 199.99)]
     public decimal? MaximumPrice { get; set; }
 
     private static bool ValidateRequired_NoticeByEmail(BlogArticle value)
