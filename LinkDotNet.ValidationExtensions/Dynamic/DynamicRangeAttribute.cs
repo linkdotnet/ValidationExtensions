@@ -7,20 +7,39 @@ namespace LinkDotNet.ValidationExtensions;
 /// </summary>
 public class DynamicRangeAttribute : ValidationAttribute
 {
+    private readonly Func<ValidationContext, object> getMinimum;
+    private readonly Func<ValidationContext, object> getMaximum;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="DynamicRangeAttribute"/> class.
-    ///     Allows for specifying range for arbitrary types. The minimum and maximum strings
-    ///     will be converted to the target type.
+    /// Allows for specifying range for arbitrary types. The minimum and maximum strings
+    /// will be converted to the target type.
     /// </summary>
     /// <param name="type">The type of the range parameters. Must implement IComparable.</param>
-    /// <param name="minimum">The minimum allowable value or property-name.</param>
-    /// <param name="maximum">The maximum allowable value or property-name.</param>
-    public DynamicRangeAttribute(Type type, string minimum, string maximum)
+    /// <param name="minimum">The minimum allowable value.</param>
+    /// <param name="maximumPropertyName">The property-name of maximum.</param>
+    public DynamicRangeAttribute(Type type, object minimum, string maximumPropertyName)
         : base()
     {
         OperandType = type;
-        Minimum = minimum;
-        Maximum = maximum;
+        getMinimum = (ValidationContext validationContext) => minimum;
+        getMaximum = (ValidationContext validationContext) => GetActualValue(validationContext, OperandType, "Maximum", maximumPropertyName);
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DynamicRangeAttribute"/> class.
+    /// Allows for specifying range for arbitrary types. The minimum and maximum strings
+    /// will be converted to the target type.
+    /// </summary>
+    /// <param name="type">The type of the range parameters. Must implement IComparable.</param>
+    /// <param name="minimumPropertyName">The property-name of minimum.</param>
+    /// <param name="maximum">The maximum allowable value.</param>
+    public DynamicRangeAttribute(Type type, string minimumPropertyName, object maximum)
+       : base()
+    {
+        OperandType = type;
+        getMinimum = (ValidationContext validationContext) => GetActualValue(validationContext, OperandType, "Minimum", minimumPropertyName);
+        getMaximum = (ValidationContext validationContext) => maximum;
     }
 
     /// <summary>
@@ -30,48 +49,14 @@ public class DynamicRangeAttribute : ValidationAttribute
     /// <value> The type of the <see cref="Minimum" /> and <see cref="Maximum" /> values. </value>
     public Type OperandType { get; }
 
-    /// <summary>
-    /// Gets the minimum value for the range or another property-name.
-    /// </summary>
-    /// <value> The minimum value for the range or another property-name. </value>
-    public string Minimum { get; private set; }
-
-    /// <summary>
-    /// Gets the maximum value for the range or another property-name.
-    /// </summary>
-    /// <value> The maximum value for the range or another property-name. </value>
-    public string Maximum { get; private set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether string values for <see cref="Minimum"/> and <see cref="Maximum"/>
-    /// are parsed in the invariant culture rather than the current culture in effect at the time of the validation
-    /// (<see cref="RangeAttribute.ParseLimitsInInvariantCulture"/>).
-    /// </summary>
-    /// <value> A value for <see cref="RangeAttribute.ParseLimitsInInvariantCulture"/>. </value>
-    public bool ParseLimitsInInvariantCulture { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether any conversions necessary from the value being validated to <see cref="OperandType"/>
-    /// as set by the <c>type</c> parameter of the <see cref="DynamicRangeAttribute(Type, string, string)"/> constructor are carried
-    /// out in the invariant culture rather than the current culture in effect at the time of the validation.
-    /// (<see cref="RangeAttribute.ConvertValueInInvariantCulture"/>).
-    /// </summary>
-    /// <value> A value for <see cref="RangeAttribute.ConvertValueInInvariantCulture"/>. </value>
-    public bool ConvertValueInInvariantCulture { get; set; }
-
     /// <inheritdoc />
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        // Get actual value of minimum and maximum
-        Minimum = GetActualValue(validationContext, OperandType, nameof(Minimum), Minimum);
-        Maximum = GetActualValue(validationContext, OperandType, nameof(Maximum), Maximum);
+        var minimumAsText = getMinimum.Invoke(validationContext).ToString();
+        var maximumAsText = getMaximum.Invoke(validationContext).ToString();
 
         // Create RangeAttribute instance for validate value in actual range
-        var rangeAttribute = new RangeAttribute(OperandType, Minimum, Maximum)
-        {
-            ParseLimitsInInvariantCulture = ParseLimitsInInvariantCulture,
-            ConvertValueInInvariantCulture = ConvertValueInInvariantCulture,
-        };
+        var rangeAttribute = new RangeAttribute(OperandType, minimumAsText, maximumAsText);
 
         if (ErrorMessage is not null)
         {
@@ -92,7 +77,7 @@ public class DynamicRangeAttribute : ValidationAttribute
     }
 
     /// <summary>
-    /// Get actual value of subject.
+    /// Get actual value of subject; subject is 'Minimum' or 'Maximum'.
     /// </summary>
     /// <param name="validationContext">
     /// A <see cref="ValidationContext" /> instance that provides
@@ -100,22 +85,22 @@ public class DynamicRangeAttribute : ValidationAttribute
     /// </param>
     /// <param name="subjectType"> The type of subject. </param>
     /// <param name="subjectName"> The name of subject. </param>
-    /// <param name="propertyNameOrValue"> The propertyName or value of subject. </param>
+    /// <param name="propertyName"> The propertyName or value of subject. </param>
     /// <returns> The actual value of subject. </returns>
     /// <exception cref="ArgumentNullException"> is thrown when propertyNameOrValue is null or nothing. </exception>
     /// <exception cref="InvalidOperationException"> is thrown when PropertyType of propertyName has not been the same as OperandType.</exception>
-    private static string GetActualValue(ValidationContext validationContext, Type subjectType, string subjectName, string propertyNameOrValue)
+    private static object GetActualValue(ValidationContext validationContext, Type subjectType, string subjectName, string propertyName)
     {
-        if (string.IsNullOrWhiteSpace(propertyNameOrValue))
+        if (string.IsNullOrWhiteSpace(propertyName))
         {
-            throw new ArgumentNullException(subjectName);
+            throw new InvalidOperationException($"The '{subjectName} PropertyName' cannot be null or empty.");
         }
 
-        var propertyInfo = validationContext.ObjectType.GetProperty(propertyNameOrValue);
+        var propertyInfo = validationContext.ObjectType.GetProperty(propertyName);
 
         if (propertyInfo is null)
         {
-            return propertyNameOrValue;
+            throw new InvalidOperationException($"The '{propertyName}' property not found (introduced for '{subjectName}' in range).");
         }
 
         var propertyType = propertyInfo.PropertyType;
@@ -129,7 +114,7 @@ public class DynamicRangeAttribute : ValidationAttribute
 
             if (propertyType != subjectType)
             {
-                throw new InvalidOperationException($"The '{propertyNameOrValue}' type must be the same as the OperandType (introduced for '{subjectName}' in range).");
+                throw new InvalidOperationException($"The '{propertyName}' type must be the same as the OperandType (introduced for '{subjectName}' in range).");
             }
         }
 
@@ -137,9 +122,9 @@ public class DynamicRangeAttribute : ValidationAttribute
 
         if (value is null)
         {
-            throw new InvalidOperationException($"The value of '{propertyNameOrValue}' property cannot be null (introduced for '{subjectName}' in range).");
+            throw new InvalidOperationException($"The value of '{propertyName}' property cannot be null (introduced for '{subjectName}' in range).");
         }
 
-        return value.ToString() ?? string.Empty;
+        return value;
     }
 }

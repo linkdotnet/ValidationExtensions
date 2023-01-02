@@ -35,12 +35,12 @@ public class DynamicRangeTests
         isValid.Should().BeTrue();
     }
 
-    [Fact(DisplayName = "Must throws 'InvalidOperationException' when 'MinimumWeight' is null")]
-    public static void MustThrowsInvalidOperationExceptionWhenMinimumWeightIsNull()
+    [Fact(DisplayName = "Must throws 'InvalidOperationException' when 'Minimum Property Value' is null")]
+    public static void MustThrowsInvalidOperationExceptionWhenMinimumPropertyValueIsNull()
     {
         var data = new Model(null, 2);
         var context = new ValidationContext(data);
-        var attribute = new DynamicRangeAttribute(typeof(decimal), "MinimumWeight", "5.2");
+        var attribute = new DynamicRangeAttribute(typeof(decimal), "MinimumWeight", 5.2);
 
         var action = () => attribute.Validate("Any", context);
 
@@ -49,12 +49,12 @@ public class DynamicRangeTests
               .WithMessage("The value of 'MinimumWeight' property cannot be null (introduced for 'Minimum' in range).");
     }
 
-    [Fact(DisplayName = "Must throws 'InvalidOperationException' when 'MaximumWeight' is null")]
-    public static void MustThrowsInvalidOperationExceptionWhenMaximumWeightIsNull()
+    [Fact(DisplayName = "Must throws 'InvalidOperationException' when 'Maximum Property Value' is null")]
+    public static void MustThrowsInvalidOperationExceptionWhenMaximumPropertyValueIsNull()
     {
         var data = new Model(2, null);
         var context = new ValidationContext(data);
-        var attribute = new DynamicRangeAttribute(typeof(decimal), "0.1", "MaximumWeight");
+        var attribute = new DynamicRangeAttribute(typeof(decimal), 0.1, "MaximumWeight");
 
         var action = () => attribute.Validate("Any", context);
 
@@ -63,28 +63,56 @@ public class DynamicRangeTests
               .WithMessage("The value of 'MaximumWeight' property cannot be null (introduced for 'Maximum' in range).");
     }
 
-    [Fact(DisplayName = "Must throws 'ArgumentNullException' when 'Minimum' is empty")]
-    public static void MustThrowsArgumentNullExceptionWhenMinimumIsEmpty()
+    [Fact(DisplayName = "Must throws 'InvalidOperationException' when 'Minimum PropertyName' is null or empty")]
+    public static void MustThrowsInvalidOperationExceptionWhenMinimumPropertyNameIsNullOrEmpty()
     {
-        var attribute = new DynamicRangeAttribute(typeof(decimal), string.Empty, "5.2");
+        var attribute = new DynamicRangeAttribute(typeof(decimal), string.Empty, 5.2);
 
         var action = () => attribute.Validate("Any", new ValidationContext(new object()));
 
         action.Should()
-              .Throw<ArgumentNullException>()
-              .WithMessage("Value cannot be null. (Parameter 'Minimum')");
+              .Throw<InvalidOperationException>()
+              .WithMessage("The 'Minimum PropertyName' cannot be null or empty.");
     }
 
-    [Fact(DisplayName = "Must throws 'ArgumentNullException' when 'Maximum' is empty")]
-    public static void MustThrowsArgumentNullExceptionWhenMaximumIsEmpty()
+    [Fact(DisplayName = "Must throws 'InvalidOperationException' when 'Maximum PropertyName' is null or empty")]
+    public static void MustThrowsInvalidOperationExceptionWhenMaximumPropertyNameIsNullOrEmpty()
     {
-        var attribute = new DynamicRangeAttribute(typeof(decimal), "0.1", string.Empty);
+        var attribute = new DynamicRangeAttribute(typeof(decimal), 0.1, string.Empty);
 
         var action = () => attribute.Validate("Any", new ValidationContext(new object()));
 
         action.Should()
-              .Throw<ArgumentNullException>()
-              .WithMessage("Value cannot be null. (Parameter 'Maximum')");
+              .Throw<InvalidOperationException>()
+              .WithMessage("The 'Maximum PropertyName' cannot be null or empty.");
+    }
+
+    [Fact(DisplayName = "Must throws 'InvalidOperationException' when 'Minimum' PropertyName is wrong")]
+    public static void MustThrowsInvalidOperationExceptionWhenMinimumPropertyNameIsWrong()
+    {
+        var data = new Model(1, 2);
+        var context = new ValidationContext(data);
+        var attribute = new DynamicRangeAttribute(typeof(decimal), "WRONG", 5.2);
+
+        var action = () => attribute.Validate("Any", context);
+
+        action.Should()
+              .Throw<InvalidOperationException>()
+              .WithMessage("The 'WRONG' property not found (introduced for 'Minimum' in range).");
+    }
+
+    [Fact(DisplayName = "Must throws 'InvalidOperationException' when 'Maximum' PropertyName is wrong")]
+    public static void MustThrowsInvalidOperationExceptionWhenMaximumPropertyNameIsWrong()
+    {
+        var data = new Model(1, 2);
+        var context = new ValidationContext(data);
+        var attribute = new DynamicRangeAttribute(typeof(decimal), 0.1, "WRONG");
+
+        var action = () => attribute.Validate("Any", context);
+
+        action.Should()
+              .Throw<InvalidOperationException>()
+              .WithMessage("The 'WRONG' property not found (introduced for 'Maximum' in range).");
     }
 
     [Fact(DisplayName = "Must throws 'InvalidOperationException' when 'Minimum' PropertyType and OperandType not the same")]
@@ -121,10 +149,10 @@ public class DynamicRangeTests
             MaximumWeight = maximumWeight;
         }
 
-        [DynamicRange(type: typeof(decimal), minimum: "0.1", maximum: nameof(MaximumWeight))]
+        [DynamicRange(type: typeof(decimal), minimum: 0.1, maximumPropertyName: nameof(MaximumWeight))]
         public decimal? MinimumWeight { get; set; }
 
-        [DynamicRange(type: typeof(decimal), minimum: nameof(MinimumWeight), maximum: "5.2")]
+        [DynamicRange(type: typeof(decimal), minimumPropertyName: nameof(MinimumWeight), maximum: 5.2)]
         public decimal? MaximumWeight { get; set; }
     }
 
@@ -136,7 +164,7 @@ public class DynamicRangeTests
             MaximumWeight = maximumWeight;
         }
 
-        [DynamicRange(type: typeof(decimal), minimum: "0.1", maximum: nameof(MaximumWeight))]
+        [DynamicRange(type: typeof(decimal), minimum: 0.1, maximumPropertyName: nameof(MaximumWeight))]
         public decimal? MinimumWeight { get; set; }
 
         public double? MaximumWeight { get; set; }
@@ -152,7 +180,7 @@ public class DynamicRangeTests
 
         public double? MinimumWeight { get; set; }
 
-        [DynamicRange(type: typeof(decimal), minimum: nameof(MinimumWeight), maximum: "5.2")]
+        [DynamicRange(type: typeof(decimal), minimumPropertyName: nameof(MinimumWeight), maximum: 5.2)]
         public decimal? MaximumWeight { get; set; }
     }
 }
