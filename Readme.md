@@ -65,6 +65,12 @@ public class BlogArticle
     [RequiredDynamic(nameof(ValidateRequired_NoticeByEmail), "Notice by email is activated")]
     public string? EmailAddress { get; set; }
     
+    [DynamicRange(typeof(decimal), minimum: "9.99", maximum: nameof(MaximumPrice))]
+    public decimal? MinimumPrice { get; set; }
+
+    [DynamicRange(typeof(decimal), minimum: nameof(MinimumPrice), maximum: "199.99")]
+    public decimal? MaximumPrice { get; set; }
+
     private static bool ValidateRequired_NoticeByEmail(BlogArticle value)
     {
         if (!value.NoticeByEmail.HasValue)
@@ -85,8 +91,7 @@ public class BlogArticle
         {
             return false;
         }
-    }    
-    
+    }
 }
 ```
 
@@ -97,3 +102,4 @@ public class BlogArticle
  * `MinIf` / `MaxIf`
  * `Min` / `Max`
  * `Dynamic`
+ * `DynamicRange`
