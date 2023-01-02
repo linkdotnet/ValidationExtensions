@@ -8,8 +8,8 @@ namespace LinkDotNet.ValidationExtensions.Tests;
 
 public class DynamicRangeTests
 {
-    [Fact(DisplayName = "Should not be valid if 'MinimumWeight' is grather than 'MaximumWeight'")]
-    public static void ShouldNotBeValidIfMinimumIsGratherThanMaximum()
+    [Fact(DisplayName = "Should not be valid if 'MinimumWeight' is greater than 'MaximumWeight'")]
+    public static void ShouldNotBeValidIfMinimumIsGreaterThanMaximum()
     {
         var data = new Model(2, 1);
         var context = new ValidationContext(data);
@@ -23,8 +23,8 @@ public class DynamicRangeTests
         results[1].ErrorMessage.Should().Be("The field MaximumWeight must be between 2 and 5.2.");
     }
 
-    [Fact(DisplayName = "Should be valid if 'MaximumWeight' is grather than 'MinimumWeight'")]
-    public static void ShouldBeValidIfMaximumIsGratherThanMinimum()
+    [Fact(DisplayName = "Should be valid if 'MaximumWeight' is greater than 'MinimumWeight'")]
+    public static void ShouldBeValidIfMaximumIsGreaterThanMinimum()
     {
         var data = new Model(1, 2);
         var context = new ValidationContext(data);
