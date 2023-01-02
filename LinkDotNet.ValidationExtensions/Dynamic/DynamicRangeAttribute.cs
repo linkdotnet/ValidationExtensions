@@ -43,6 +43,22 @@ public class DynamicRangeAttribute : ValidationAttribute
     }
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="DynamicRangeAttribute"/> class.
+    /// Allows for specifying range for arbitrary types. The minimum and maximum strings
+    /// will be converted to the target type.
+    /// </summary>
+    /// <param name="type">The type of the range parameters. Must implement IComparable.</param>
+    /// <param name="minimumPropertyName">The property-name of minimum.</param>
+    /// <param name="maximumPropertyName">The property-name of maximum.</param>
+    public DynamicRangeAttribute(Type type, string minimumPropertyName, string maximumPropertyName)
+       : base()
+    {
+        OperandType = type;
+        getMinimum = (ValidationContext validationContext) => GetActualValue(validationContext, OperandType, "Minimum", minimumPropertyName);
+        getMaximum = (ValidationContext validationContext) => GetActualValue(validationContext, OperandType, "Maximum", maximumPropertyName);
+    }
+
+    /// <summary>
     /// Gets the type of the <see cref="Minimum" /> and <see cref="Maximum" /> values
     /// (e.g. Int32, Double, or some custom type).
     /// </summary>
