@@ -16,13 +16,13 @@ public class DynamicRangeAttribute : ValidationAttribute
     /// will be converted to the target type.
     /// </summary>
     /// <param name="type">The type of the range parameters. Must implement IComparable.</param>
-    /// <param name="minimum">The minimum allowable value.</param>
+    /// <param name="minimumPropertyName">The property-name of minimum.</param>
     /// <param name="maximumPropertyName">The property-name of maximum.</param>
-    public DynamicRangeAttribute(Type type, object minimum, string maximumPropertyName)
-        : base()
+    public DynamicRangeAttribute(Type type, string minimumPropertyName, string maximumPropertyName)
+       : base()
     {
         OperandType = type;
-        getMinimum = (ValidationContext validationContext) => minimum;
+        getMinimum = (ValidationContext validationContext) => GetActualValue(validationContext, OperandType, "Minimum", minimumPropertyName);
         getMaximum = (ValidationContext validationContext) => GetActualValue(validationContext, OperandType, "Maximum", maximumPropertyName);
     }
 
@@ -48,13 +48,13 @@ public class DynamicRangeAttribute : ValidationAttribute
     /// will be converted to the target type.
     /// </summary>
     /// <param name="type">The type of the range parameters. Must implement IComparable.</param>
-    /// <param name="minimumPropertyName">The property-name of minimum.</param>
+    /// <param name="minimum">The minimum allowable value.</param>
     /// <param name="maximumPropertyName">The property-name of maximum.</param>
-    public DynamicRangeAttribute(Type type, string minimumPropertyName, string maximumPropertyName)
-       : base()
+    public DynamicRangeAttribute(Type type, object minimum, string maximumPropertyName)
+        : base()
     {
         OperandType = type;
-        getMinimum = (ValidationContext validationContext) => GetActualValue(validationContext, OperandType, "Minimum", minimumPropertyName);
+        getMinimum = (ValidationContext validationContext) => minimum;
         getMaximum = (ValidationContext validationContext) => GetActualValue(validationContext, OperandType, "Maximum", maximumPropertyName);
     }
 
@@ -68,8 +68,8 @@ public class DynamicRangeAttribute : ValidationAttribute
     /// <inheritdoc />
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        var minimumAsText = getMinimum.Invoke(validationContext).ToString();
-        var maximumAsText = getMaximum.Invoke(validationContext).ToString();
+        var minimumAsText = getMinimum.Invoke(validationContext).ToString()!;
+        var maximumAsText = getMaximum.Invoke(validationContext).ToString()!;
 
         // Create RangeAttribute instance for validate value in actual range
         var rangeAttribute = new RangeAttribute(OperandType, minimumAsText, maximumAsText);
