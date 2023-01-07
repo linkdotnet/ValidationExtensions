@@ -13,11 +13,11 @@
         <PackageLicenseUrl>https://github.com/linkdotnet/ValidationExtensions/LICENSE</PackageLicenseUrl>
         <RepositoryUrl>https://github.com/linkdotnet/ValidationExtensions</RepositoryUrl>
         <PackageTags>Blazor,Validation,Attribute</PackageTags>
-        <PackageVersion>2.1.0</PackageVersion>
+        <PackageVersion>2.2.0</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="SonarAnalyzer.CSharp" Version="8.35.0.42613">
+        <PackageReference Include="SonarAnalyzer.CSharp" Version="8.51.0.59060">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
