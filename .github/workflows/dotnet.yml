@@ -18,7 +18,6 @@ jobs:
       with:
         include-prerelease: true
         dotnet-version: |
-          4.8.x
           6.0.x
           7.0.x
     - name: Restore dependencies
