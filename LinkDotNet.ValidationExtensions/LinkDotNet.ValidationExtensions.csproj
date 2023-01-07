@@ -1,42 +1,49 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net6.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Title>ValidationExtensions</Title>
-        <Authors>Steven Giesel (linkdotnet)</Authors>
-        <Description>Offers new attributes for Blazor validation</Description>
-        <Copyright>Steven Giesel (linkdotnet)</Copyright>
-        <PackageProjectUrl>https://github.com/linkdotnet/ValidationExtensions</PackageProjectUrl>
-        <PackageLicenseUrl>https://github.com/linkdotnet/ValidationExtensions/LICENSE</PackageLicenseUrl>
-        <RepositoryUrl>https://github.com/linkdotnet/ValidationExtensions</RepositoryUrl>
-        <PackageTags>Blazor,Validation,Attribute</PackageTags>
-        <PackageVersion>2.2.0</PackageVersion>
-    </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>net7.0;net6.0;net48</TargetFrameworks>
+		<LangVersion>11.0</LangVersion>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Title>ValidationExtensions</Title>
+		<Authors>Steven Giesel (linkdotnet)</Authors>
+		<Description>Offers new attributes for Blazor validation</Description>
+		<Copyright>Steven Giesel (linkdotnet)</Copyright>
+		<PackageProjectUrl>https://github.com/linkdotnet/ValidationExtensions</PackageProjectUrl>
+		<PackageLicenseUrl>https://github.com/linkdotnet/ValidationExtensions/LICENSE</PackageLicenseUrl>
+		<RepositoryUrl>https://github.com/linkdotnet/ValidationExtensions</RepositoryUrl>
+		<PackageTags>Blazor,Validation,Attribute</PackageTags>
+		<PackageVersion>2.2.0</PackageVersion>
+	</PropertyGroup>
 
-    <ItemGroup>
-        <PackageReference Include="SonarAnalyzer.CSharp" Version="8.51.0.59060">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-        <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406">
-            <PrivateAssets>all</PrivateAssets>
-            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-        </PackageReference>
-    </ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+		<Reference Include="System.ComponentModel.DataAnnotations" />
+		<Reference Include="System.Net.Http" />
+	</ItemGroup>
 
-    <ItemGroup>
-        <AdditionalFiles Include="$(SolutionDir)\stylecop.json" Link="stylecop.json" />
-        <None Include="..\Readme.md">
-          <Pack>True</Pack>
-          <PackagePath>\</PackagePath>
-        </None>
-    </ItemGroup>
-    <PropertyGroup>
-        <CodeAnalysisRuleSet>$(SolutionDir)\stylecop.analyzers.ruleset</CodeAnalysisRuleSet>
-        <PackageReadmeFile>Readme.md</PackageReadmeFile>
-    </PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="SonarAnalyzer.CSharp" Version="8.51.0.59060">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="$(SolutionDir)\stylecop.json" Link="stylecop.json" />
+		<None Include="..\Readme.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+
+	<PropertyGroup>
+		<CodeAnalysisRuleSet>$(SolutionDir)\stylecop.analyzers.ruleset</CodeAnalysisRuleSet>
+		<PackageReadmeFile>Readme.md</PackageReadmeFile>
+	</PropertyGroup>
 
 </Project>
