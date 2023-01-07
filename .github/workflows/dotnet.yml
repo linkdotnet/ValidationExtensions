@@ -9,9 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
-    env:
-      DOTNET_INSTALL_DIR: "./.dotnet"
+    runs-on: windows
     steps:
     - uses: actions/checkout@v3.3.0
     - name: Setup .NET
