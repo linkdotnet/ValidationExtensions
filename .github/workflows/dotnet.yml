@@ -7,7 +7,8 @@ on:
     branches: [ main ]
 
 jobs:
-  build 4.8:
+  build_net48:
+    name: Build .NET v4.8
     runs-on: windows-latest
     steps:
     - uses: actions/checkout@v3.3.0
@@ -18,7 +19,8 @@ jobs:
     - name: Test
       run: dotnet test --framework=net48 --no-build
       
-  build 6.0:
+  build_net6:
+    name: Build .NET v6.0
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3.3.0
@@ -33,7 +35,8 @@ jobs:
     - name: Test
       run: dotnet test --framework=net6.0 --no-build
 
-  build 7.0:
+  build_net7:
+    name: Build .NET v7.0
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3.3.0
