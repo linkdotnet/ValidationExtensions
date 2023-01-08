@@ -10,7 +10,7 @@ internal static class ArgumentNullExceptionHelper
 {
 #if NET6_0_OR_GREATER
     internal static void ThrowIfNull([NotNull] object? argument, [CallerArgumentExpression("argument")] string? paramName = null)
-        => ArgumentNullException.ThrowIfNull(argument);    
+        => ArgumentNullException.ThrowIfNull(argument);
 #else
     internal static void ThrowIfNull(object? argument, string paramName)
     {
