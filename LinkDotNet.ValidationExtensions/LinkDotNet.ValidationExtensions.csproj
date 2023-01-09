@@ -5,7 +5,6 @@
 		<LangVersion>10.0</LangVersion>
 		<Nullable>enable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Title>ValidationExtensions</Title>
 		<Authors>Steven Giesel (linkdotnet)</Authors>
 		<Description>Offers new attributes for Blazor validation</Description>
