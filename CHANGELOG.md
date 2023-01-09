@@ -4,30 +4,41 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 ## [Unreleased]
 
+## [2.3.1] - 2023-01-09
+
 ### Added
- - Support for `netstandard2.0` and `net7.0`
+
+-   Support for `netstandard2.0` and `net7.0`
 
 ### Added
 
 ## [2.1.0]
 
 ### Added
- * Added `RequiredDynamicAttribute` which can accept method to validate complicated requirement(s) and more readable code. By [mhb164](https://github.com/mhb164)
+
+-   Added `RequiredDynamicAttribute` which can accept method to validate complicated requirement(s) and more readable code. By [mhb164](https://github.com/mhb164)
 
 ## [2.0.0]
 
 ### Added
- * Removed all `*IfNotAttribute` in favor of newly introducded `IsInverse` parameter. For example: `[RequiredIfNot(nameof(OtherProperty), false)]` --> `[RequiredIf(nameof(OtherProperty), false, isInverse: true)]`
- * Added `MinAttribute` which indicates that a number field has to have at least this value
- * Added `MinIfAttribute` which used `MinAttribute` if the condition is (not) met
- * Added `MaxAttribute` which indicates that a number field has to have at most this value
- * Added `MaxIfAttribute` which used `MaxAttribute` if the condition is (not) met
+
+-   Removed all `*IfNotAttribute` in favor of newly introducded `IsInverse` parameter. For example: `[RequiredIfNot(nameof(OtherProperty), false)]` --> `[RequiredIf(nameof(OtherProperty), false, isInverse: true)]`
+-   Added `MinAttribute` which indicates that a number field has to have at least this value
+-   Added `MinIfAttribute` which used `MinAttribute` if the condition is (not) met
+-   Added `MaxAttribute` which indicates that a number field has to have at most this value
+-   Added `MaxIfAttribute` which used `MaxAttribute` if the condition is (not) met
 
 ## [1.1.0]
 
 ### Added
- * Added `MinLengthRequiredIfAttribute` and `MinLengthRequiredIfNotAttribute`
- * Added `MaxLengthRequiredIfAttribute` and `MaxLengthRequiredIfNotAttribute`
+
+-   Added `MinLengthRequiredIfAttribute` and `MinLengthRequiredIfNotAttribute`
+-   Added `MaxLengthRequiredIfAttribute` and `MaxLengthRequiredIfNotAttribute`
 
 ## [1.0.0]
- * Initial Release
+
+-   Initial Release
+
+[Unreleased]: https://github.com/linkdotnet/ValidationExtensions/compare/2.3.1...HEAD
+
+[2.3.1]: https://github.com/linkdotnet/ValidationExtensions/compare/138e2951b2d42584ed66e41e6f31e203e509b8ef...2.3.1
