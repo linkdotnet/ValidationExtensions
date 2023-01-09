@@ -14,7 +14,6 @@
 		<PackageLicenseUrl>https://github.com/linkdotnet/ValidationExtensions/LICENSE</PackageLicenseUrl>
 		<RepositoryUrl>https://github.com/linkdotnet/ValidationExtensions</RepositoryUrl>
 		<PackageTags>Blazor,Validation,Attribute</PackageTags>
-		<PackageVersion>2.2.0</PackageVersion>
 	</PropertyGroup>
 
 	<ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
