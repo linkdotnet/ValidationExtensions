@@ -27,7 +27,7 @@ jobs:
         fetch-depth: 0
 
     - name: Setup dotnet
-      uses: actions/setup-dotnet@v3.3.0
+      uses: actions/setup-dotnet@v3.0.3
       with:
         dotnet-version: | 
           5.0.x
