@@ -2,6 +2,13 @@
 
 All notable changes to the **ValidationExtensions** will be documented in this file. The project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+ - Support for `netstandard2.0` and `net7.0`
+
+### Added
+
 ## [2.1.0]
 
 ### Added
