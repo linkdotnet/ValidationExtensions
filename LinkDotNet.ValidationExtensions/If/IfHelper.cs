@@ -11,7 +11,7 @@ internal static class IfHelper
         bool invert)
     {
         ArgumentNullExceptionHelper.ThrowIfNull(validationContext, nameof(validationContext));
-        ArgumentNullExceptionHelper.ThrowIfNull(propertyName, nameof(propertyName));
+        ArgumentNullExceptionHelper.ThrowIfNullOrEmpty(propertyName, nameof(propertyName));
 
         var owningType = validationContext!.ObjectType;
         var property = owningType.GetProperty(propertyName);

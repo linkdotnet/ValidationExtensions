@@ -59,7 +59,7 @@ public class RequiredDynamicAttribute : ValidationAttribute
     private static bool IsRequired(ValidationContext validationContext, string methodName)
     {
         ArgumentNullExceptionHelper.ThrowIfNull(validationContext, nameof(validationContext));
-        ArgumentNullExceptionHelper.ThrowIfNull(methodName, nameof(methodName));
+        ArgumentNullExceptionHelper.ThrowIfNullOrEmpty(methodName, nameof(methodName));
 
         var owningType = validationContext.ObjectType;
         var methodInfo = GetSuitableMethod(owningType, methodName);
@@ -74,7 +74,7 @@ public class RequiredDynamicAttribute : ValidationAttribute
     private static MethodInfo? GetSuitableMethod(Type owningType, string methodName)
     {
         ArgumentNullExceptionHelper.ThrowIfNull(owningType, nameof(owningType));
-        ArgumentNullExceptionHelper.ThrowIfNull(methodName, nameof(methodName));
+        ArgumentNullExceptionHelper.ThrowIfNullOrEmpty(methodName, nameof(methodName));
 
         foreach (var bindingFlagForSearch in BindingFlagsForSearch)
         {
