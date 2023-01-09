@@ -4,6 +4,8 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 ## [Unreleased]
 
+## [2.3.2] - 2023-01-09
+
 ## [2.3.1] - 2023-01-09
 
 ### Added
@@ -39,6 +41,8 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 -   Initial Release
 
-[Unreleased]: https://github.com/linkdotnet/ValidationExtensions/compare/2.3.1...HEAD
+[Unreleased]: https://github.com/linkdotnet/ValidationExtensions/compare/2.3.2...HEAD
+
+[2.3.2]: https://github.com/linkdotnet/ValidationExtensions/compare/2.3.1...2.3.2
 
 [2.3.1]: https://github.com/linkdotnet/ValidationExtensions/compare/138e2951b2d42584ed66e41e6f31e203e509b8ef...2.3.1
