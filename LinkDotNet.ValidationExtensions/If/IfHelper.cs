@@ -10,10 +10,10 @@ internal static class IfHelper
         object? requiredValue,
         bool invert)
     {
-        ArgumentNullException.ThrowIfNull(validationContext);
-        ArgumentNullException.ThrowIfNull(propertyName);
+        ArgumentNullExceptionHelper.ThrowIfNull(validationContext, nameof(validationContext));
+        ArgumentNullExceptionHelper.ThrowIfNullOrEmpty(propertyName, nameof(propertyName));
 
-        var owningType = validationContext.ObjectType;
+        var owningType = validationContext!.ObjectType;
         var property = owningType.GetProperty(propertyName);
 
         if (property == null)

@@ -3,7 +3,7 @@
 namespace LinkDotNet.ValidationExtensions;
 
 /// <summary>
-/// Used for specifying a minimum value
+/// Used for specifying a minimum value.
 /// </summary>
 public class MaxAttribute : RangeAttribute
 {
