@@ -6,8 +6,40 @@ using Xunit;
 
 namespace LinkDotNet.ValidationExtensions.Tests.Generic;
 
-public partial class DynamicRangeBuiltInTypesTests
+public class DynamicRangeBuiltInTypesTests
 {
+    [Theory]
+    [MemberData(nameof(TestData))]
+    public static void TestAllBuiltInTypes<T>(T minimumRange, T minimum, T maximum, T maximumRange, bool minimumIsValid, bool maximumIsValid)
+       where T : IComparable<T>
+    {
+        var data = new Model<T>(minimum, maximum);
+        var context = new ValidationContext(data);
+        var minimumAttribute = new DynamicRangeAttribute<T>(minimumRange, "Maximum");
+        var maximumAttribute = new DynamicRangeAttribute<T>("Minimum", maximumRange);
+
+        var minimumValidation = minimumAttribute.GetValidationResult(minimum, context);
+        var maximumValidation = maximumAttribute.GetValidationResult(maximum, context);
+
+        if (minimumIsValid)
+        {
+            minimumValidation.Should().Be(ValidationResult.Success);
+        }
+        else
+        {
+            minimumValidation.Should().NotBe(ValidationResult.Success);
+        }
+
+        if (maximumIsValid)
+        {
+            maximumValidation.Should().Be(ValidationResult.Success);
+        }
+        else
+        {
+            maximumValidation.Should().NotBe(ValidationResult.Success);
+        }
+    }
+
     // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/built-in-types
     public static IEnumerable<object[]> TestData()
     {
@@ -65,38 +97,6 @@ public partial class DynamicRangeBuiltInTypesTests
         // decimal - minimumRange <= minimum <= maximum <= maximumRange, minimumIsValid, maximumIsValid
         yield return new object[] { 3.2m, 2.2m, 5.2m, 4.2m, false, false };
         yield return new object[] { 1.2m, 2.2m, 5.2m, 6.2m, true, true };
-    }
-
-    [Theory]
-    [MemberData(nameof(TestData))]
-    public static void TestAllBuiltInTypes<T>(T minimumRange, T minimum, T maximum, T maximumRange, bool minimumIsValid, bool maximumIsValid)
-         where T : IComparable<T>
-    {
-        var data = new Model<T>(minimum, maximum);
-        var context = new ValidationContext(data);
-        var minimumAttribute = new DynamicRangeAttribute<T>(minimumRange, "Maximum");
-        var maximumAttribute = new DynamicRangeAttribute<T>("Minimum", maximumRange);
-
-        var minimumValidation = minimumAttribute.GetValidationResult(minimum, context);
-        var maximumValidation = maximumAttribute.GetValidationResult(maximum, context);
-
-        if (minimumIsValid)
-        {
-            minimumValidation.Should().Be(ValidationResult.Success);
-        }
-        else
-        {
-            minimumValidation.Should().NotBe(ValidationResult.Success);
-        }
-
-        if (maximumIsValid)
-        {
-            maximumValidation.Should().Be(ValidationResult.Success);
-        }
-        else
-        {
-            maximumValidation.Should().NotBe(ValidationResult.Success);
-        }
     }
 
     public class Model<T>
