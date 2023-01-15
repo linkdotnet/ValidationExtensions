@@ -32,6 +32,7 @@
 
 	<ItemGroup>
 		<AdditionalFiles Include="$(SolutionDir)\stylecop.json" Link="stylecop.json" />
+		<AdditionalFiles Include="$(SolutionDir)\CHANGELOG.md" Link="CHANGELOG.md" />
 		<None Include="..\Readme.md">
 			<Pack>True</Pack>
 			<PackagePath>\</PackagePath>

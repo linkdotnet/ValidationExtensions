@@ -6,7 +6,7 @@ using Xunit;
 
 namespace LinkDotNet.ValidationExtensions.Tests.Generic;
 
-public partial class DynamicRangeTests
+public partial class GenericDynamicRangeTests
 {
     [Fact(DisplayName = "Should not be valid if 'MinimumWeight' is greater than 'MaximumWeight'")]
     public static void ShouldNotBeValidIfMinimumIsGreaterThanMaximum()
