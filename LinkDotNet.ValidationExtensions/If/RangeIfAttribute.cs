@@ -5,7 +5,7 @@ namespace LinkDotNet.ValidationExtensions;
 /// <summary>
 /// Used for specifying a range constraint when the condition is (not) met.
 /// </summary>
-public class RangeIfAttribute : RangeAttribute
+public sealed class RangeIfAttribute : RangeAttribute
 {
     private readonly string propertyName;
     private readonly object? isValue;

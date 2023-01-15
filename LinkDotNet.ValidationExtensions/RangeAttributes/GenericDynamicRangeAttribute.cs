@@ -8,7 +8,7 @@ namespace LinkDotNet.ValidationExtensions;
 /// <typeparam name="T">
 /// The operand type of range.
 /// </typeparam>
-public class DynamicRangeAttribute<T> : ValidationAttribute
+public sealed class DynamicRangeAttribute<T> : ValidationAttribute
     where T : IComparable<T>
 {
     private readonly Func<ValidationContext, T> getMinimum;

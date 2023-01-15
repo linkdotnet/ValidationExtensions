@@ -5,7 +5,7 @@ namespace LinkDotNet.ValidationExtensions;
 /// <summary>
 /// Used for specifying a minimum value when the condition is (not) met.
 /// </summary>
-public class MaxIfAttribute : MaxAttribute
+public sealed class MaxIfAttribute : MaxAttribute
 {
     private readonly string propertyName;
     private readonly object? isValue;

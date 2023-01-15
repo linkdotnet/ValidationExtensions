@@ -5,7 +5,7 @@ namespace LinkDotNet.ValidationExtensions;
 /// <summary>
 /// Specifies the maximum length of collection/string data allowed in a property when the condition is (not) met.
 /// </summary>
-public class MaxLengthIfAttribute : MaxLengthAttribute
+public sealed class MaxLengthIfAttribute : MaxLengthAttribute
 {
     private readonly string propertyName;
     private readonly object? isValue;

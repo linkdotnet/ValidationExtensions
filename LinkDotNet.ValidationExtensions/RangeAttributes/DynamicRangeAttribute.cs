@@ -5,7 +5,7 @@ namespace LinkDotNet.ValidationExtensions;
 /// <summary>
 /// Used for specifying a range that accepts another property-name for 'Minimum' or 'Maximum'.
 /// </summary>
-public class DynamicRangeAttribute : ValidationAttribute
+public sealed class DynamicRangeAttribute : ValidationAttribute
 {
     private readonly Func<ValidationContext, object> getMinimum;
     private readonly Func<ValidationContext, object> getMaximum;

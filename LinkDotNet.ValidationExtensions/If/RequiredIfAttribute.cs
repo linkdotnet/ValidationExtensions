@@ -5,7 +5,7 @@ namespace LinkDotNet.ValidationExtensions;
 /// <summary>
 /// Validation attribute to indicate that a property field or parameter is required when the condition is (not) met.
 /// </summary>
-public class RequiredIfAttribute : ValidationAttribute
+public sealed class RequiredIfAttribute : ValidationAttribute
 {
     private readonly string propertyName;
     private readonly object? isValue;

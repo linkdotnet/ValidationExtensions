@@ -6,7 +6,7 @@ namespace LinkDotNet.ValidationExtensions;
 /// <summary>
 /// Validation attribute that can accept method to validate complicated requirement(s) and more readable code.
 /// </summary>
-public class RequiredDynamicAttribute : ValidationAttribute
+public sealed class RequiredDynamicAttribute : ValidationAttribute
 {
     private static readonly List<BindingFlags> BindingFlagsForSearch = new()
     {
