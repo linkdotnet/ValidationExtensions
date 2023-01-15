@@ -71,6 +71,12 @@ public class BlogArticle
     [DynamicRange(typeof(decimal), minimumPropertyName: nameof(MinimumPrice), maximum: 199.99)]
     public decimal? MaximumPrice { get; set; }
 
+    [DynamicRange<double>(minimum: 0.1d, maximumPropertyName: nameof(MaximumWeight))]
+    public double? MinimumWeight { get; set; }
+
+    [DynamicRange<double>(minimumPropertyName: nameof(MinimumWeight), maximum: 500d)]
+    public double? MaximumWeight { get; set; }
+
     private static bool ValidateRequired_NoticeByEmail(BlogArticle value)
     {
         if (!value.NoticeByEmail.HasValue)
@@ -102,4 +108,5 @@ public class BlogArticle
  * `MinIf` / `MaxIf`
  * `Min` / `Max`
  * `Dynamic`
- * `DynamicRange`
+ * `DynamicRange` 
+ * `DynamicRange<T>` [C# 11 Generic Attributes](https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/proposals/csharp-11.0/generic-attributes)
