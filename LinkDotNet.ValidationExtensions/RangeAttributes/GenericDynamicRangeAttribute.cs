@@ -132,9 +132,10 @@ public class DynamicRangeAttribute<T> : ValidationAttribute
         var propertyType = propertyInfo.PropertyType;
         if (propertyType != subjectType)
         {
-            if (propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            var isNullableType = propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(Nullable<>);
+
+            if (isNullableType)
             {
-                // it is nullable so we extrcat underlying type
                 propertyType = propertyType.GetGenericArguments()[0];
             }
 
