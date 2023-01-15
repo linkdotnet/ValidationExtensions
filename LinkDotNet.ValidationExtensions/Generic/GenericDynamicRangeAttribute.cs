@@ -59,6 +59,21 @@ public class DynamicRangeAttribute<T> : ValidationAttribute
         getMaximum = (ValidationContext validationContext) => GetActualValue(validationContext, "Maximum", maximumPropertyName);
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="DynamicRangeAttribute{T}"/> class.
+    /// Allows for specifying range for arbitrary types. The minimum and maximum strings
+    /// will be converted to the target type.
+    /// </summary>
+    /// <param name="type">The type of the range parameters. Must implement IComparable.</param>
+    /// <param name="minimum">The minimum allowable value.</param>
+    /// <param name="maximum">The maximum allowable value.</param>
+    public DynamicRangeAttribute(T minimum, T maximum)
+        : base()
+    {
+        getMinimum = (ValidationContext validationContext) => minimum;
+        getMaximum = (ValidationContext validationContext) => maximum;
+    }
+
     /// <inheritdoc />
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
