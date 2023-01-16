@@ -4,6 +4,8 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 ## [Unreleased]
 
+## [2.4.0] - 2023-01-16
+
 -   Added `DynamicRangeAttribute<T>` which is the simplified and type-strong version of `DynamicRangeAttribute`. By [mhb164](https://github.com/mhb164)
 
 ## [2.3.2] - 2023-01-09
@@ -43,7 +45,9 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 -   Initial Release
 
-[Unreleased]: https://github.com/linkdotnet/ValidationExtensions/compare/2.3.2...HEAD
+[Unreleased]: https://github.com/linkdotnet/ValidationExtensions/compare/2.4.0...HEAD
+
+[2.4.0]: https://github.com/linkdotnet/ValidationExtensions/compare/2.3.2...2.4.0
 
 [2.3.2]: https://github.com/linkdotnet/ValidationExtensions/compare/2.3.1...2.3.2
 
