@@ -5,7 +5,7 @@ namespace LinkDotNet.ValidationExtensions;
 /// <summary>
 /// Used for specifying a range that accepts another property-name for 'Minimum' or 'Maximum'.
 /// </summary>
-public class DynamicRangeAttribute : ValidationAttribute
+public sealed class DynamicRangeAttribute : ValidationAttribute
 {
     private readonly Func<ValidationContext, object> getMinimum;
     private readonly Func<ValidationContext, object> getMaximum;
@@ -122,9 +122,10 @@ public class DynamicRangeAttribute : ValidationAttribute
         var propertyType = propertyInfo.PropertyType;
         if (propertyType != subjectType)
         {
-            if (propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            var isNullableType = propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof(Nullable<>);
+
+            if (isNullableType)
             {
-                // it is nullable so we extrcat underlying type
                 propertyType = propertyType.GetGenericArguments()[0];
             }
 

@@ -4,6 +4,8 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 ## [Unreleased]
 
+-   Added `DynamicRangeAttribute<T>` which is the simplified and type-strong version of `DynamicRangeAttribute`. By [mhb164](https://github.com/mhb164)
+
 ## [2.3.2] - 2023-01-09
 
 ## [2.3.1] - 2023-01-09

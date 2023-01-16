@@ -5,7 +5,7 @@ namespace LinkDotNet.ValidationExtensions;
 /// <summary>
 /// Specifies the minimum length of collection/string data allowed in a property when the condition is (not) met.
 /// </summary>
-public class MinLengthIfAttribute : MinLengthAttribute
+public sealed class MinLengthIfAttribute : MinLengthAttribute
 {
     private readonly string propertyName;
     private readonly object? isValue;
