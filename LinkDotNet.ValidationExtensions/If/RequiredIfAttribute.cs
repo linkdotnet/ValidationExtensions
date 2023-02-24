@@ -35,15 +35,23 @@ public sealed class RequiredIfAttribute : ValidationAttribute
 
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
+        var validationResult = ValidationResult.Success;
         var isRequired = validationContext.IsRequired(propertyName, isValue, inverse);
-        if (!isRequired)
+
+        if(!isRequired)
         {
             return ValidationResult.Success;
         }
 
-        var validationResult = value == null
-            ? new ValidationResult(FormatErrorMessage(validationContext.DisplayName))
-            : ValidationResult.Success;
+        if(value == null)
+        {
+            string[]? memberNames = validationContext.MemberName != null
+                ? new[] { validationContext.MemberName }
+                : null;
+
+            validationResult = new ValidationResult(FormatErrorMessage(validationContext.DisplayName), memberNames);
+        }
+
         return validationResult;
     }
 }
