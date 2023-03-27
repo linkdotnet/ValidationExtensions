@@ -4,6 +4,10 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 ## [Unreleased]
 
+### Added
+
+- New attributes to check if a date is valid in the future or past.
+
 ## [2.4.0] - 2023-01-16
 
 -   Added `DynamicRangeAttribute<T>` which is the simplified and type-strong version of `DynamicRangeAttribute`. By [mhb164](https://github.com/mhb164)
