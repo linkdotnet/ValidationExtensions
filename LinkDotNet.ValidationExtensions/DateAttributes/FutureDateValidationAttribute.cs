@@ -6,7 +6,7 @@ public sealed class FutureDateValidationAttribute : ValidationAttribute
 {
     public bool UseUtc { get; set; } = true;
 
-    protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+    protected override ValidationResult? IsValid(object value, ValidationContext validationContext)
     {
         if (value is null)
         {
