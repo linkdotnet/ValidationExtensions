@@ -47,13 +47,9 @@ public sealed class RequiredDynamicAttribute : ValidationAttribute
 
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
     {
-        var isRequired = IsRequired(validationContext, methodName);
-        if (isRequired)
-        {
-            return new ValidationResult(FormatErrorMessage(validationContext.DisplayName));
-        }
-
-        return ValidationResult.Success;
+        return IsRequired(validationContext, methodName)
+            ? new ValidationResult(FormatErrorMessage(validationContext.DisplayName))
+            : ValidationResult.Success;
     }
 
     private static bool IsRequired(ValidationContext validationContext, string methodName)
@@ -76,33 +72,24 @@ public sealed class RequiredDynamicAttribute : ValidationAttribute
         ArgumentNullExceptionHelper.ThrowIfNull(owningType, nameof(owningType));
         ArgumentNullExceptionHelper.ThrowIfNullOrEmpty(methodName, nameof(methodName));
 
-        foreach (var bindingFlagForSearch in BindingFlagsForSearch)
+        return BindingFlagsForSearch
+            .Select(bindingFlag => owningType.GetMethod(methodName, bindingFlag))
+            .FirstOrDefault(methodInfo => IsValidMethod(methodInfo, owningType));
+    }
+
+    private static bool IsValidMethod(MethodInfo? methodInfo, Type owningType)
+    {
+        if (methodInfo == null)
         {
-            var methodInfo = owningType.GetMethod(methodName, bindingFlagForSearch);
-            if (methodInfo == null)
-            {
-                continue;
-            }
-
-            var parameters = methodInfo.GetParameters();
-            if (parameters.Length != 1)
-            {
-                continue;
-            }
-
-            if (parameters[0].ParameterType != owningType)
-            {
-                continue;
-            }
-
-            if (methodInfo.ReturnType != typeof(bool))
-            {
-                continue;
-            }
-
-            return methodInfo;
+            return false;
         }
 
-        return null;
+        var parameters = methodInfo.GetParameters();
+        if (parameters.Length != 1 || parameters[0].ParameterType != owningType)
+        {
+            return false;
+        }
+
+        return methodInfo.ReturnType == typeof(bool);
     }
 }
