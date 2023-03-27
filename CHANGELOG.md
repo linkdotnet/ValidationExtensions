@@ -4,9 +4,11 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 ## [Unreleased]
 
+## [2.5.0] - 2023-03-27
+
 ### Added
 
-- New attributes to check if a date is valid in the future or past.
+-   New attributes to check if a date is valid in the future or past.
 
 ## [2.4.0] - 2023-01-16
 
@@ -49,7 +51,9 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 -   Initial Release
 
-[Unreleased]: https://github.com/linkdotnet/ValidationExtensions/compare/2.4.0...HEAD
+[Unreleased]: https://github.com/linkdotnet/ValidationExtensions/compare/2.5.0...HEAD
+
+[2.5.0]: https://github.com/linkdotnet/ValidationExtensions/compare/2.4.0...2.5.0
 
 [2.4.0]: https://github.com/linkdotnet/ValidationExtensions/compare/2.3.2...2.4.0
 
