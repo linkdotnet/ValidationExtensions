@@ -4,6 +4,9 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 ## [Unreleased]
 
+### Fixed
+- Use wrong error sentence
+
 ## [2.5.0] - 2023-03-27
 
 ### Added

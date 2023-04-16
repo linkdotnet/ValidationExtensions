@@ -16,7 +16,7 @@ public sealed class FutureDateValidationAttribute : ValidationAttribute
         var now = UseUtc ? DateTime.UtcNow : DateTime.Now;
 
         return (DateTime)value <= now
-            ? new ValidationResult("The scheduled publish date must be in the future.")
+            ? new ValidationResult("The selected date must be in the future.")
             : ValidationResult.Success;
     }
 }
