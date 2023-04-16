@@ -4,6 +4,9 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 ## [Unreleased]
 
+### Added
+- Respect optional Error Message
+
 ### Fixed
 - Use wrong error sentence
 
