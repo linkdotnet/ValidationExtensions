@@ -22,8 +22,8 @@ public sealed class DynamicRangeAttribute : ValidationAttribute
        : base()
     {
         OperandType = type;
-        getMinimum = (ValidationContext validationContext) => GetActualValue(validationContext, OperandType, "Minimum", minimumPropertyName);
-        getMaximum = (ValidationContext validationContext) => GetActualValue(validationContext, OperandType, "Maximum", maximumPropertyName);
+        getMinimum = validationContext => GetActualValue(validationContext, OperandType, "Minimum", minimumPropertyName);
+        getMaximum = validationContext => GetActualValue(validationContext, OperandType, "Maximum", maximumPropertyName);
     }
 
     /// <summary>
@@ -38,8 +38,8 @@ public sealed class DynamicRangeAttribute : ValidationAttribute
        : base()
     {
         OperandType = type;
-        getMinimum = (ValidationContext validationContext) => GetActualValue(validationContext, OperandType, "Minimum", minimumPropertyName);
-        getMaximum = (ValidationContext validationContext) => maximum;
+        getMinimum = validationContext => GetActualValue(validationContext, OperandType, "Minimum", minimumPropertyName);
+        getMaximum = _ => maximum;
     }
 
     /// <summary>
@@ -54,8 +54,8 @@ public sealed class DynamicRangeAttribute : ValidationAttribute
         : base()
     {
         OperandType = type;
-        getMinimum = (ValidationContext validationContext) => minimum;
-        getMaximum = (ValidationContext validationContext) => GetActualValue(validationContext, OperandType, "Maximum", maximumPropertyName);
+        getMinimum = _ => minimum;
+        getMaximum = validationContext => GetActualValue(validationContext, OperandType, "Maximum", maximumPropertyName);
     }
 
     /// <summary>

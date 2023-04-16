@@ -64,7 +64,7 @@ public sealed class RequiredDynamicAttribute : ValidationAttribute
             throw new NotSupportedException($"Can't find {methodName} suitable method on searched type: {owningType.Name}");
         }
 
-        return Convert.ToBoolean(methodInfo.Invoke(validationContext.ObjectInstance, new object[] { validationContext.ObjectInstance }));
+        return Convert.ToBoolean(methodInfo.Invoke(validationContext.ObjectInstance, new[] { validationContext.ObjectInstance }));
     }
 
     private static MethodInfo? GetSuitableMethod(Type owningType, string methodName)
