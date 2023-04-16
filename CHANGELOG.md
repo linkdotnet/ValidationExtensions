@@ -4,11 +4,15 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 ## [Unreleased]
 
+## [2.5.1] - 2023-04-16
+
 ### Added
-- Respect optional Error Message
+
+-   Respect optional Error Message
 
 ### Fixed
-- Use wrong error sentence
+
+-   Use wrong error sentence
 
 ## [2.5.0] - 2023-03-27
 
@@ -57,7 +61,9 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 -   Initial Release
 
-[Unreleased]: https://github.com/linkdotnet/ValidationExtensions/compare/2.5.0...HEAD
+[Unreleased]: https://github.com/linkdotnet/ValidationExtensions/compare/2.5.1...HEAD
+
+[2.5.1]: https://github.com/linkdotnet/ValidationExtensions/compare/2.5.0...2.5.1
 
 [2.5.0]: https://github.com/linkdotnet/ValidationExtensions/compare/2.4.0...2.5.0
 
