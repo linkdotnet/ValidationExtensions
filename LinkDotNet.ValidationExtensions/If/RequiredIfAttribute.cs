@@ -38,14 +38,14 @@ public sealed class RequiredIfAttribute : ValidationAttribute
         var validationResult = ValidationResult.Success;
         var isRequired = validationContext.IsRequired(propertyName, isValue, inverse);
 
-        if(!isRequired)
+        if (!isRequired)
         {
             return ValidationResult.Success;
         }
 
-        if(value == null)
+        if (value == null)
         {
-            string[]? memberNames = validationContext.MemberName != null
+            var memberNames = validationContext.MemberName != null
                 ? new[] { validationContext.MemberName }
                 : null;
 

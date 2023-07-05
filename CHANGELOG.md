@@ -4,6 +4,8 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 ## [Unreleased]
 
+- Fixed issue with not indidating validation errors with a border around the control.
+
 ## [2.4.0] - 2023-01-16
 
 -   Added `DynamicRangeAttribute<T>` which is the simplified and type-strong version of `DynamicRangeAttribute`. By [mhb164](https://github.com/mhb164)
