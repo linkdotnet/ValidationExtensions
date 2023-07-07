@@ -4,6 +4,9 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 ## [Unreleased]
 
+### Fixed
+- Fixed issue with not indidating validation errors with a border around the control. By [Robelind](https://github.com/Robelind)
+
 ## [2.5.1] - 2023-04-16
 
 ### Added
