@@ -60,6 +60,54 @@ public class RequiredIfTests
         act.Should().Throw<NotSupportedException>();
     }
 
+    [Fact]
+    public void ShouldBeValidWhenNullAndDependentIsNotNull()
+    {
+        var model = new OtherModel(null, "Test");
+        var context = new ValidationContext(model);
+        var results = new List<ValidationResult>();
+
+        var isValid = Validator.TryValidateObject(model, context, results, true);
+
+        isValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ShouldBeInvalidWhenNullAndDependentIsNull()
+    {
+        var model = new OtherModel(null, null);
+        var context = new ValidationContext(model);
+        var results = new List<ValidationResult>();
+
+        var isValid = Validator.TryValidateObject(model, context, results, true);
+
+        isValid.Should().BeFalse();
+    }
+
+    [Fact]
+    public void ShouldBeValidWhenNotNullAndDependentIsNotNull()
+    {
+        var model = new OtherModel("Test", "Test");
+        var context = new ValidationContext(model);
+        var results = new List<ValidationResult>();
+
+        var isValid = Validator.TryValidateObject(model, context, results, true);
+
+        isValid.Should().BeTrue();
+    }
+
+    [Fact]
+    public void ShouldBeValidWhenNotNullAndDependentIsNull()
+    {
+        var model = new OtherModel("Test", null);
+        var context = new ValidationContext(model);
+        var results = new List<ValidationResult>();
+
+        var isValid = Validator.TryValidateObject(model, context, results, true);
+
+        isValid.Should().BeTrue();
+    }
+
     public class Model
     {
         public Model(string? someProperty, bool isDependent, string? otherPropertyDependingOnString)
@@ -77,6 +125,21 @@ public class RequiredIfTests
 
         [RequiredIf(nameof(SomeProperty), "Test")]
         public string? OtherPropertyDependingOnString { get; set; }
+    }
+
+    public class OtherModel
+    {
+        public OtherModel(string? someOtherProperty, string? isDependentNullable)
+        {
+            SomeOtherProperty = someOtherProperty;
+            IsDependentNullable = isDependentNullable;
+        }
+
+        public string? IsDependentNullable { get; set; }
+
+        [RequiredIf(nameof(IsDependentNullable), null)]
+        public string? SomeOtherProperty { get; set; }
+
     }
 
     public class InvalidModel

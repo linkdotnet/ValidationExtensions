@@ -4,6 +4,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDotNet.ValidationExtens
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinkDotNet.ValidationExtensions.Tests", "LinkDotNet.ValidationExtensions.Tests\LinkDotNet.ValidationExtensions.Tests.csproj", "{7C762C04-2533-4E2D-A49B-199EABE002C7}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".text", ".text", "{B912949A-A456-4678-9040-1C04D83B3A25}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

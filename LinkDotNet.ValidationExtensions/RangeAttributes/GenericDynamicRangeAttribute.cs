@@ -25,8 +25,8 @@ public sealed class DynamicRangeAttribute<T> : ValidationAttribute
     public DynamicRangeAttribute(string minimumPropertyName, string maximumPropertyName)
        : base()
     {
-        getMinimum = (ValidationContext validationContext) => GetActualValue(validationContext, "Minimum", minimumPropertyName);
-        getMaximum = (ValidationContext validationContext) => GetActualValue(validationContext, "Maximum", maximumPropertyName);
+        getMinimum = validationContext => GetActualValue(validationContext, "Minimum", minimumPropertyName);
+        getMaximum = validationContext => GetActualValue(validationContext, "Maximum", maximumPropertyName);
     }
 
     /// <summary>
@@ -40,8 +40,8 @@ public sealed class DynamicRangeAttribute<T> : ValidationAttribute
     public DynamicRangeAttribute(string minimumPropertyName, T maximum)
        : base()
     {
-        getMinimum = (ValidationContext validationContext) => GetActualValue(validationContext, "Minimum", minimumPropertyName);
-        getMaximum = (ValidationContext validationContext) => maximum;
+        getMinimum = validationContext => GetActualValue(validationContext, "Minimum", minimumPropertyName);
+        getMaximum = _ => maximum;
     }
 
     /// <summary>
@@ -53,10 +53,9 @@ public sealed class DynamicRangeAttribute<T> : ValidationAttribute
     /// <param name="minimum">The minimum allowable value.</param>
     /// <param name="maximumPropertyName">The property-name of maximum.</param>
     public DynamicRangeAttribute(T minimum, string maximumPropertyName)
-        : base()
     {
-        getMinimum = (ValidationContext validationContext) => minimum;
-        getMaximum = (ValidationContext validationContext) => GetActualValue(validationContext, "Maximum", maximumPropertyName);
+        getMinimum = _ => minimum;
+        getMaximum = validationContext => GetActualValue(validationContext, "Maximum", maximumPropertyName);
     }
 
     /// <summary>
@@ -70,8 +69,8 @@ public sealed class DynamicRangeAttribute<T> : ValidationAttribute
     public DynamicRangeAttribute(T minimum, T maximum)
         : base()
     {
-        getMinimum = (ValidationContext validationContext) => minimum;
-        getMaximum = (ValidationContext validationContext) => maximum;
+        getMinimum = _ => minimum;
+        getMaximum = _ => maximum;
     }
 
     /// <inheritdoc />
