@@ -4,9 +4,12 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 ## [Unreleased]
 
+## [2.6.0] - 2023-07-07
+
 ### Fixed
-- Fixed issue with not indidating validation errors with a border around the control. By [Robelind](https://github.com/Robelind)
-- Fixed an issue where `RequiredIf` did not work with `null` values. By [Robelind](https://github.com/Robelind)
+
+-   Fixed issue with not indidating validation errors with a border around the control. By [Robelind](https://github.com/Robelind)
+-   Fixed an issue where `RequiredIf` did not work with `null` values. By [Robelind](https://github.com/Robelind)
 
 ## [2.5.1] - 2023-04-16
 
@@ -65,7 +68,9 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 -   Initial Release
 
-[Unreleased]: https://github.com/linkdotnet/ValidationExtensions/compare/2.5.1...HEAD
+[Unreleased]: https://github.com/linkdotnet/ValidationExtensions/compare/2.6.0...HEAD
+
+[2.6.0]: https://github.com/linkdotnet/ValidationExtensions/compare/2.5.1...2.6.0
 
 [2.5.1]: https://github.com/linkdotnet/ValidationExtensions/compare/2.5.0...2.5.1
 
