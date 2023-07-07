@@ -139,10 +139,9 @@ public class RequiredIfTests
 
         [RequiredIf(nameof(IsDependentNullable), null)]
         public string? SomeOtherProperty { get; set; }
-
     }
 
-    public class InvalidModel
+    private class InvalidModel
     {
         [RequiredIf("not-existing property", false)]
         public string? Id { get; set; }
