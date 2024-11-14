@@ -4,11 +4,14 @@ All notable changes to the **ValidationExtensions** will be documented in this f
 
 ## [Unreleased]
 
+### Added
+- net9.0 as target framework.
+
 ## [2.6.0] - 2023-07-07
 
 ### Fixed
 
--   Fixed issue with not indidating validation errors with a border around the control. By [Robelind](https://github.com/Robelind)
+-   Fixed issue with not indicating validation errors with a border around the control. By [Robelind](https://github.com/Robelind)
 -   Fixed an issue where `RequiredIf` did not work with `null` values. By [Robelind](https://github.com/Robelind)
 
 ## [2.5.1] - 2023-04-16

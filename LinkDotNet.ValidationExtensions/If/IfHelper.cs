@@ -33,6 +33,6 @@ internal static class IfHelper
             return requiredIfTypeActualValue == null || requiredIfTypeActualValue.Equals(requiredValue);
         }
 
-        return (requiredValue != null && requiredIfTypeActualValue == null) || (requiredIfTypeActualValue != null && !requiredIfTypeActualValue.Equals(requiredValue));
+        return requiredIfTypeActualValue != null && !requiredIfTypeActualValue.Equals(requiredValue);
     }
 }
