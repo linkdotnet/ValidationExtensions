@@ -1,0 +1,37 @@
+﻿@page "/"
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+<EditForm Model="model" OnValidSubmit="Callback">
+    <DataAnnotationsValidator />
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="firstname"
+               @oninput="args => model.FirstName = args.Value!.ToString()!" value="@model.FirstName"/>
+        <label for="firstname">First Name</label>
+        <ValidationMessage For="() => model.FirstName"></ValidationMessage>
+    </div>
+    <div class="form-floating mb-3">
+        <input type="text" class="form-control" id="lastname"
+               @oninput="args => model.LastName = args.Value!.ToString()!" value="@model.LastName"/>
+        <label for="lastname">Last Name</label>
+        <ValidationMessage For="() => model.LastName"></ValidationMessage>
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary position-relative" type="submit">Submit</button>
+    </div>
+</EditForm>
+
+@code {
+
+    private readonly Model model = new()
+    {
+        FirstName = "Steven"
+    };
+
+    private void Callback()
+    {
+    }
+
+}
