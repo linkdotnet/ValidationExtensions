@@ -8,6 +8,6 @@ public class Model
     [Required]
     public required string FirstName { get; set; }
     
-    [RequiredIf(nameof(FirstName), "Steven")] 
+    [RequiredIf(nameof(FirstName), "Steven", ErrorMessage = "Custom message goes here.")] 
     public string? LastName { get; set; }
 }
